@@ -12,13 +12,13 @@ class ConditionChecklistController extends Controller
     public function index()
     {
         $lists = GeneratorChecklist::all();
-        return view('generator.index', compact('lists'));
+        return view('checklist.index', compact('lists'));
     }
 
     // หน้าเพิ่มข้อมูล
     public function create()
     {
-        return view('generator.create');
+        return view('checklist.create');
     }
 
     // บันทึกข้อมูล
@@ -32,7 +32,7 @@ class ConditionChecklistController extends Controller
     public function show($id)
     {
         $item = GeneratorChecklist::findOrFail($id);
-        return view('generator.show', compact('item'));
+        return view('checklist.show', compact('item'));
     }
 
     // ลบ
@@ -40,5 +40,12 @@ class ConditionChecklistController extends Controller
     {
         GeneratorChecklist::findOrFail($id)->delete();
         return back();
+    }
+
+        // หน้าแสดงตาราง
+    public function failed()
+    {
+        $lists = GeneratorChecklist::all();
+        return view('checklist.failed', compact('lists'));
     }
 }

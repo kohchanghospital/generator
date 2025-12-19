@@ -18,7 +18,7 @@
             <span>รายละเอียดตรวจเช็คเครื่องปั่นไฟ</span>
         </a>
 
-        <a href="#" class="sidebar-item">
+        <a href="{{ route('checklist.failed') }}" class="sidebar-item">
             <span class="sideber-icon">⛔️</span>
             <span>รายการตรวจเช็คเครื่องปั่นไฟไม่ผ่าน</span>
         </a>
@@ -33,7 +33,7 @@
             <div class="flex-1 h-px bg-gray-300 dark:bg-gray-600"></div>
         </div>
 
-        <a href="#" class="sidebar-item">
+        <a href="{{ route('generator.index') }}" class="sidebar-item">
             <span class="sideber-icon">📁</span>
             <span>บันทึกข้อมูลเครื่องปั่นไฟ</span>
         </a>

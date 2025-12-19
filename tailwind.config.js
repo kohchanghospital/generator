@@ -12,7 +12,9 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                // sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                eng: ['Figtree', 'ui-sans-serif', 'system-ui'],
+                thai: ['"Noto Sans Thai"', 'ui-sans-serif', 'system-ui'],
             },
         },
     },
