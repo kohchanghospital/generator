@@ -5,7 +5,7 @@
                 {{ __('รายละเอียดตรวจเช็คเครื่องปั่นไฟ') }}
             </h2>
             <a href="#" class="absolute top-0 right-0 btn btn-primary text-gray-800 dark:text-gray-200 leading-tight">
-                ⬇️ Generate Report
+                <i class="bi bi-file-earmark-arrow-down"></i> Generate Report
             </a>
         </div>
     </x-slot>
@@ -14,7 +14,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <a href="{{ route('checklist.create') }}" class="btn btn-success">
-                        + เพิ่มข้อมูล
+                        <i class="bi bi-plus-circle"></i> เพิ่มข้อมูล
                     </a>
                     <div class="overflow-x-auto pt-6">
                         <table class="min-w-full border table-auto border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
@@ -63,6 +63,19 @@
                                 </tr>
                             @endforelse
                             </tbody>
+                            @if($lists->count())
+                            <tfoot class="bg-gray-100 dark:bg-gray-700 border-t border-gray-300 dark:border-gray-600">
+                                <tr>
+                                    <td colspan="7"
+                                        class="px-4 py-3 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">
+                                        จำนวนรายการทั้งหมด
+                                    </td>
+                                    <td class="px-4 py-3 text-center font-bold text-gray-900 dark:text-white">
+                                        {{ $lists->count() }} รายการ
+                                    </td>
+                                </tr>
+                            </tfoot>
+                            @endif
                         </table>
                     </div>
                 </div>

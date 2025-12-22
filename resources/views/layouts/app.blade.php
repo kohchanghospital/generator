@@ -11,60 +11,62 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.bunny.net/css?family=noto-sans-thai:300,400,500,600&display=swap" rel="stylesheet" />
-    <!-- Scripts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="antialiased">
-    <!-- ⭐ container หลัก ต้องเป็น flex -->
-    {{-- <div x-data="{ sidebarOpen: true }" class="min-h-screen flex bg-gray-100 dark:bg-gray-900"> --}}
-        <div
-            x-data="{
-                sidebarOpen: localStorage.getItem('sidebarOpen') === 'false' ? false : true,
-                mobileOpen: false
-            }"
-            x-init="$watch('sidebarOpen', value => localStorage.setItem('sidebarOpen', value))"
-            class="min-h-screen bg-gray-100 dark:bg-gray-900"
-        >
+<body class="antialiased overflow-x-hidden">
 
-                {{-- Overlay (Mobile) --}}
-        <div
-            x-show="mobileOpen"
-            @click="mobileOpen = false"
-            class="fixed inset-0 bg-black/50 z-30 lg:hidden"
-            x-transition
-        ></div>
+<div
+    x-data="{
+        sidebarOpen: localStorage.getItem('sidebarOpen') === 'false' ? false : true,
+        mobileOpen: false
+    }"
+    x-init="$watch('sidebarOpen', value => localStorage.setItem('sidebarOpen', value))"
+    class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900"
+>
 
-        <div class="flex">
-            {{-- Sidebar --}}
-            @auth
-                @include('layouts.sidebar')
-            @endauth
+    {{-- Overlay (Mobile) --}}
+    <div
+        x-show="mobileOpen"
+        @click="mobileOpen = false"
+        class="fixed inset-0 bg-black/50 z-30 lg:hidden"
+        x-transition
+    ></div>
 
-            {{-- Content --}}
-            <div class="ml-20 flex-1 flex flex-col">
+    <div class="flex flex-1">
+        {{-- Sidebar --}}
+        @auth
+            @include('layouts.sidebar')
+        @endauth
 
-                {{-- Top Navigation --}}
-                @include('layouts.navigation')
+        {{-- Content --}}
+        <div class="ml-20 flex-1 flex flex-col">
+            {{-- Top Navigation --}}
+            @include('layouts.navigation')
 
-                {{-- Page Heading --}}
-                @isset($header)
-                    <header class="bg-white dark:bg-gray-800 shadow">
-                        <div class="max-w-8xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                            {{ $header }}
-                        </div>
-                    </header>
-                @endisset
+            {{-- Page Heading --}}
+            @isset($header)
+                <header class="bg-white dark:bg-gray-800 shadow">
+                    <div class="max-w-8xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
+            @endisset
 
-                {{-- Page Content --}}
-                <main class="flex-1 p-6">
-                    {{ $slot }}
-                </main>
-
-            </div>
+            {{-- Page Content --}}
+            <main class="flex-1 p-6">
+                {{ $slot }}
+            </main>
         </div>
     </div>
+
+    {{-- Footer --}}
+    <footer class="py-4 text-center text-sm text-gray-400 border-t border-gray-700">
+        © {{ date('Y') }} Kohchang Hospital. All rights reserved.
+    </footer>
+
+</div>
 </body>
-
-
 </html>

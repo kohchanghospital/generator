@@ -23,7 +23,7 @@
             <span>รายการตรวจเช็คเครื่องปั่นไฟไม่ผ่าน</span>
         </a>
 
-        <a href="#" class="sidebar-item">
+        <a href="{{ route('calendar')}}" class="sidebar-item">
             <span class="sideber-icon">🗓️</span>
             <span>ปฏิทินการตรวจเช็ค</span>
         </a>
@@ -38,7 +38,7 @@
             <span>บันทึกข้อมูลเครื่องปั่นไฟ</span>
         </a>
 
-        <a href="#" class="sidebar-item">
+        <a href="{{ route('checklist.setting') }}" class="sidebar-item">
             <span class="sideber-icon">✏️</span>
             <span>ตั้งค่ารายการตรวจเช็ค</span>
         </a>
