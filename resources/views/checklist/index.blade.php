@@ -101,8 +101,8 @@
                                 </tfoot>
                                 @endif
                             </table>
-                            @include('checklist.modal-delete')
                         </div>
+                        <x-modal-delete />
                     </div>
                 </div>
             </div>
