@@ -13,12 +13,12 @@
             <span>Dashboard</span>
         </a>
 
-        <a href="{{ route('checklist.index') }}" class="sidebar-item">
+        <a href="{{ route('check_sheet.index') }}" class="sidebar-item">
             <span class="sideber-icon">📋</span>
             <span>รายละเอียดตรวจเช็คเครื่องปั่นไฟ</span>
         </a>
 
-        <a href="{{ route('checklist.failed') }}" class="sidebar-item">
+        <a href="{{ route('check_sheet.failed') }}" class="sidebar-item">
             <span class="sideber-icon">⛔️</span>
             <span>รายการตรวจเช็คเครื่องปั่นไฟไม่ผ่าน</span>
         </a>
@@ -38,7 +38,7 @@
             <span>บันทึกข้อมูลเครื่องปั่นไฟ</span>
         </a>
 
-        <a href="{{ route('checklist.setting') }}" class="sidebar-item">
+        <a href="{{ route('checklist.index') }}" class="sidebar-item">
             <span class="sideber-icon">✏️</span>
             <span>ตั้งค่ารายการตรวจเช็ค</span>
         </a>

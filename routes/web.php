@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ConditionChecklistController;
+use App\Http\Controllers\CheckSheetController;
 use App\Http\Controllers\GeneratorController;
+use App\Http\Controllers\ChecklistController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('welcome');});
@@ -16,18 +17,25 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/generator-checklist', [ConditionChecklistController::class, 'index'])->name('checklist.index');
-Route::get('/generator-checklist/create', [ConditionChecklistController::class, 'create'])->name('checklist.create');
-Route::post('/generator-checklist', [ConditionChecklistController::class, 'store'])->name('checklist.store');
-Route::get('/generator-checklist/failed', [ConditionChecklistController::class, 'failed'])->name('checklist.failed');
-Route::get('/generator-checklist/setting', function () {return view('checklist.setting');})->name('checklist.setting');
+Route::get('/check-sheet', [CheckSheetController::class, 'index'])->name('check_sheet.index');
+Route::post('/check-sheet', [CheckSheetController::class, 'store'])->name('check_sheet.store');
+Route::get('/check-sheet/create', [CheckSheetController::class, 'create'])->name('check_sheet.create');
+Route::get('/check-sheet/failed', [CheckSheetController::class, 'failed'])->name('check_sheet.failed');
+Route::get('/check-sheet/{id}', [CheckSheetController::class, 'show'])->name('check_sheet.show');
+Route::delete('/check-sheet/{id}', [CheckSheetController::class, 'destroy'])->name('check_sheet.destroy');
+
+Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
+Route::post('/checklist', [ChecklistController::class, 'store'])->name('checklist.store');
+Route::get('/checklist/create', [ChecklistController::class, 'create'])->name('checklist.create');
+Route::put('/checklist/{id}', [ChecklistController::class, 'update'])->name('checklist.update');
+Route::get('/checklist/edit/{id}', [ChecklistController::class, 'edit'])->name('checklist.edit');
+Route::delete('/checklist/{id}', [ChecklistController::class, 'destroy'])->name('checklist.destroy');
+
 Route::get('/generator', [GeneratorController::class, 'index'])->name('generator.index');
-Route::get('/generator/create', [GeneratorController::class, 'create'])->name('generator.create');
 Route::post('/generator', [GeneratorController::class, 'store'])->name('generator.store');
-Route::get('/generator/edit/{id}', [GeneratorController::class, 'edit'])->name('generator.edit');
+Route::get('/generator/create', [GeneratorController::class, 'create'])->name('generator.create');
 Route::get('/generator/{id}', [GeneratorController::class, 'show'])->name('generator.show');
-Route::get('/generator-checklist/{id}', [ConditionChecklistController::class, 'show'])->name('checklist.show');
-Route::delete('/generator-checklist/{id}', [ConditionChecklistController::class, 'destroy'])->name('checklist.destroy');
-Route::delete('/generator/{id}', [ConditionChecklistController::class, 'destroy'])->name('generator.destroy');
+Route::get('/generator/edit/{id}', [GeneratorController::class, 'edit'])->name('generator.edit');
+Route::delete('/generator/{id}', [GeneratorController::class, 'destroy'])->name('generator.destroy');
 
 require __DIR__.'/auth.php';

@@ -5,34 +5,34 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\GeneratorChecklist;
 
-class ConditionChecklistController extends Controller
+class CheckSheetController extends Controller
 
 {
     // หน้าแสดงตาราง
     public function index()
     {
         $lists = GeneratorChecklist::all();
-        return view('checklist.index', compact('lists'));
+        return view('check_sheet.index', compact('lists'));
     }
 
     // หน้าเพิ่มข้อมูล
     public function create()
     {
-        return view('checklist.create');
+        return view('check_sheet.create');
     }
 
     // บันทึกข้อมูล
     public function store(Request $request)
     {
         GeneratorChecklist::create($request->all());
-        return redirect()->route('checklist.index');
+        return redirect()->route('check_sheet.index');
     }
 
     // ดูรายละเอียด
     public function show($id)
     {
         $item = GeneratorChecklist::findOrFail($id);
-        return view('checklist.show', compact('item'));
+        return view('check_sheet.show', compact('item'));
     }
 
     // ลบ
@@ -46,6 +46,6 @@ class ConditionChecklistController extends Controller
     public function failed()
     {
         $lists = GeneratorChecklist::all();
-        return view('checklist.failed', compact('lists'));
+        return view('check_sheet.failed', compact('lists'));
     }
 }

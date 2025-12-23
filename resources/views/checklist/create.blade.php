@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('บันทึกข้อมูลการตรวจเช็คสภาพเครื่องปั่นไฟ') }}
+            {{ __('บันทึกข้อมูลการตรวจเช็คใหม่') }}
         </h2>
     </x-slot>
     <div class="py-6">
@@ -10,61 +10,57 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     @if(session('success'))
-                        <div class="bg-green-100 text-green-700 p-2 mb-3">
-                            {{ session('success') }}
-                        </div>
+                    <div class="bg-green-100 text-green-700 p-2 mb-3">
+                        {{ session('success') }}
+                    </div>
                     @endif
 
                     <form method="POST" action="{{ route('checklist.store') }}">
                         @csrf
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6 items-end">
 
-                        {{-- ELECTRICAL NO --}}
-                        <div class="mb-3">
-                            <label>ELECTRICAL NO.</label>
-                            <input type="text" name="electrical_number"
-                                class="form-control bg-gray-50 dark:bg-gray-800"
-                                value="ELECT-00005">
+                            {{-- รายการตรวจเช็ค --}}
+                            <div class="md:col-span-3">
+                                <label class="block mb-2 text-sm font-medium">รายการตรวจเช็ค : </label>
+                                <input type="text" name="checklist_name"
+                                    class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800
+                                    px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                    placeholder="กรอกรายการตรวจเช็ค" required value="">
+                            </div>
+                            <div class="">
+                                <label class="block mb-2 text-sm font-medium">สถานะ : </label>
+                                <div class="flex items-center gap-4">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input checked
+                                            type="radio"
+                                            name="status"
+                                            value="1"
+                                            class="text-green-600 focus:ring-green-500">
+                                        <span>เปิดใช้งาน</span>
+                                    </label>
+
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="status"
+                                            value="2"
+                                            class="text-red-600 focus:ring-red-500">
+                                        <span>ปิดใช้งาน</span>
+                                    </label>
+                                </div>
+                            </div>
+
+
                         </div>
-
-                        {{-- วันที่ตรวจ --}}
-                        <div class="mb-3">
-                            <label>วันที่ตรวจ</label>
-                            <input type="date" name="check_date" class="form-control scheme-dark bg-gray-50 dark:bg-gray-800">
+                        {{-- BUTTON --}}
+                        <div class="flex justify-end mt-6">
+                            <button
+                                class="inline-flex items-center px-6 py-2
+                                    bg-green-600 hover:bg-green-700
+                                    text-white font-semibold rounded-lg transition">
+                                บันทึกข้อมูล
+                            </button>
                         </div>
-
-                        {{-- เวลาที่ตรวจ --}}
-                        <div class="mb-3">
-                            <label>เวลาที่ตรวจ</label>
-                            <input type="time" name="check_time" class="form-control scheme-dark bg-gray-50 dark:bg-gray-800">
-                        </div>
-
-                        {{-- เครื่องปั่นไฟ --}}
-                        <div class="mb-3">
-                            <label>เครื่องปั่นไฟ</label>
-                            <select name="generator_name" class="form-control col-start-1 row-start-1 appearance-none bg-gray-50 dark:bg-gray-800">
-                                <option value="">-- เลือก --</option>
-                                <option value="Generator A">Generator A</option>
-                                <option value="Generator B">Generator B</option>
-                            </select>
-                        </div>
-
-                        {{-- ผู้บันทึก --}}
-                        <div class="mb-3">
-                            <label>ผู้บันทึก</label>
-                            <input type="text" name="created_by"
-                                class="form-control  bg-gray-50 dark:bg-gray-800"
-                                value="{{ auth()->user()->name ?? '' }}">
-                        </div>
-
-                        {{-- หมายเหตุ --}}
-                        <div class="mb-3">
-                            <label>หมายเหตุ</label>
-                            <textarea name="remark" class="form-control  bg-gray-50 dark:bg-gray-800"></textarea>
-                        </div>
-
-                        <button class="btn btn-success">
-                            บันทึกข้อมูล
-                        </button>
                     </form>
                 </div>
             </div>
