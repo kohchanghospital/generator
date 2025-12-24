@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             
             $table->string('checklist_name')->comment('ชื่อ checklist');
-            $table->string('status')->comment('สถานะ');
+            $table->string('status')->nullable()->comment('สถานะ');
 
             $table->timestamps();
         });

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('asset_name')->comment('ชื่อครุภัณฑ์ / ชื่อเครื่อง');
             $table->string('brand')->nullable()->comment('ยี่ห้อ');
             $table->text('detail')->nullable()->comment('รายละเอียด');
-            $table->decimal('price', 12, 2)->nullable()->comment('ราคา');
+            $table->string('status')->nullable()->comment('สถานะ');
 
             $table->timestamps();
         });

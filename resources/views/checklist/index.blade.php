@@ -13,6 +13,7 @@
                 status: 1
             },
             confirmDelete: false,
+            baseUrl: '{{ url('checklist') }}',
             deleteId: null,
             deleteName: '',
         }">

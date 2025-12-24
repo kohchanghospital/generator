@@ -16,12 +16,6 @@ class ChecklistController extends Controller
         return view('checklist.index', compact('lists'));
     }
 
-    // หน้าเพิ่มข้อมูล
-    public function create()
-    {
-        return view('checklist.create');
-    }
-
     // บันทึกข้อมูล
     public function store(Request $request)
     {
@@ -52,14 +46,6 @@ class ChecklistController extends Controller
                     'toast_message' => 'ไม่สามารถเพิ่มรายการตรวจเช็คได้'
                 ]);
         }
-    }
-
-
-    // ดูรายละเอียด
-    public function show($id)
-    {
-        $item = Checklist::findOrFail($id);
-        return view('checklist.show', compact('item'));
     }
 
     public function update(Request $request, $id)
@@ -118,6 +104,5 @@ class ChecklistController extends Controller
                 ]);
         }
     }
-
 
 }

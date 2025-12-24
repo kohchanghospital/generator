@@ -38,7 +38,7 @@
 
             <form
                 method="POST"
-                :action="'{{ url('checklist') }}/' + deleteId"
+                :action="baseUrl + '/' + deleteId"
             >
                 @csrf
                 @method('DELETE')

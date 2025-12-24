@@ -26,16 +26,13 @@ Route::delete('/check-sheet/{id}', [CheckSheetController::class, 'destroy'])->na
 
 Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
 Route::post('/checklist', [ChecklistController::class, 'store'])->name('checklist.store');
-Route::get('/checklist/create', [ChecklistController::class, 'create'])->name('checklist.create');
 Route::put('/checklist/{id}', [ChecklistController::class, 'update'])->name('checklist.update');
-Route::get('/checklist/edit/{id}', [ChecklistController::class, 'edit'])->name('checklist.edit');
 Route::delete('/checklist/{id}', [ChecklistController::class, 'destroy'])->name('checklist.destroy');
 
 Route::get('/generator', [GeneratorController::class, 'index'])->name('generator.index');
 Route::post('/generator', [GeneratorController::class, 'store'])->name('generator.store');
-Route::get('/generator/create', [GeneratorController::class, 'create'])->name('generator.create');
 Route::get('/generator/{id}', [GeneratorController::class, 'show'])->name('generator.show');
-Route::get('/generator/edit/{id}', [GeneratorController::class, 'edit'])->name('generator.edit');
+Route::put('/generator/{id}', [GeneratorController::class, 'update'])->name('generator.update');
 Route::delete('/generator/{id}', [GeneratorController::class, 'destroy'])->name('generator.destroy');
 
 require __DIR__.'/auth.php';

@@ -12,6 +12,6 @@ class Generator extends Model
         'asset_name',
         'brand',
         'detail',
-        'price'
+        'status'
     ];
 }
