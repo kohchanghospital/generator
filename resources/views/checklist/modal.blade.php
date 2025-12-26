@@ -3,7 +3,7 @@
     <div
         x-show="open"
         x-transition
-        class="fixed inset-0 bg-black bg-opacity-50 z-40"
+        class="fixed inset-0 bg-black/30 backdrop-blur-[4px] z-40"
         @click="open = false">
     </div>
 

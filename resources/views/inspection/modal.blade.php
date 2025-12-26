@@ -3,7 +3,7 @@
     <div
         x-show="open"
         x-transition
-        class="fixed inset-0 bg-black bg-opacity-50 z-40"
+        class="fixed inset-0 bg-black/30 backdrop-blur-[4px] z-40"
         @click="open = false">
     </div>
 
@@ -131,7 +131,7 @@
                                 <label class="block mb-2 text-sm font-medium">
                                     ตารางตรวจสอบ :
                                 </label>
-                                <div class="max-h-[40vh] md:max-h-[50vh] overflow-y-auto border scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 border-gray-200 dark:border-gray-700 rounded-lg">
+                                <div class="max-h-[40vh] md:max-h-[45vh] overflow-y-auto border scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 border-gray-200 dark:border-gray-700 rounded-lg">
                                     <table class="min-w-full table-auto border-gray-200 dark:border-gray-700 rounded-lg ">
                                         <thead class="bg-gray-100 dark:bg-gray-700 sticky top-0 z-10">
                                             <tr>
