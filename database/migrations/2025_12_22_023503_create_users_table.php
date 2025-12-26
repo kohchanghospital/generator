@@ -23,10 +23,26 @@ return new class extends Migration
         Schema::create('status', function (Blueprint $table) {
             $table->id();
             
+            $table->unsignedTinyInteger('status_code')->comment('1=ผ่าน, 2=ไม่ผ่าน, 3=ไม่ได้ตรวจสอบ');
             $table->string('status_name')->comment('ชื่อสถานะ');
 
             $table->timestamps();
         });
+
+        DB::table('status')->insert([
+            [
+                'status_code' => 1,
+                'status_name' => 'เปิดใช้งาน',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'status_code' => 2,
+                'status_name' => 'ปิดใช้งาน',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 
     /**

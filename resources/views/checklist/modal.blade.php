@@ -28,13 +28,12 @@
 
             <!-- Body -->
             <div class="p-6 text-gray-900 dark:text-gray-100">
-                
-                <form 
+
+                <form
                     method="POST"
                     :action="mode === 'create'
                         ? '{{ route('checklist.store') }}'
-                        : '{{ url('checklist') }}/' + current.id"
-                >
+                        : '{{ url('checklist') }}/' + current.id">
                     @csrf
                     <template x-if="mode === 'edit'">
                         @method('PUT')
@@ -55,27 +54,38 @@
                                 placeholder="กรอกรายการตรวจเช็ค"
                                 class="w-full rounded-lg border border-gray-300 dark:border-gray-600
                                     bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                    focus:ring-2 focus:ring-green-500 focus:outline-none"
-                            >
+                                    focus:ring-2 focus:ring-green-500 focus:outline-none">
                         </div>
                         {{-- สถานะ --}}
                         <div>
                             <label class="block mb-2 text-sm font-medium">สถานะ :</label>
-                            <div class="flex items-center gap-4">
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input checked type="radio" name="status" value="1"
-                                        x-model="current.status"
-                                        class="text-green-600 focus:ring-green-500">
-                                    <span>เปิดใช้งาน</span>
-                                </label>
-
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="radio" name="status" value="2"
-                                        x-model="current.status"
-                                        class="text-red-600 focus:ring-red-500">
-                                    <span>ปิดใช้งาน</span>
-                                </label>
-                            </div>
+                            <label
+                                class="relative inline-flex items-center cursor-pointer"
+                                :class="mode === 'view' ? 'opacity-60 cursor-not-allowed' : ''">
+                                <!-- Hidden checkbox -->
+                                <input
+                                    type="checkbox"
+                                    class="sr-only"
+                                    :checked="current.status == 1"
+                                    @change="current.status = $event.target.checked ? 1 : 2"
+                                    :disabled="mode === 'view'">
+                                <!-- Switch background -->
+                                <div
+                                    class="w-11 h-6 rounded-full transition-colors"
+                                    :class="current.status == 1
+                                            ? 'bg-green-600'
+                                            : 'bg-gray-300 dark:bg-gray-600'"></div>
+                                <!-- Switch knob -->
+                                <div
+                                    class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform"
+                                    :class="current.status == 1 ? 'translate-x-5' : ''"></div>
+                                <!-- Label text -->
+                                <span class="ml-3 text-sm font-medium"
+                                    x-text="current.status == 1 ? 'เปิดใช้งาน' : 'ปิดใช้งาน'">
+                                </span>
+                            </label>
+                            <!-- hidden input เพื่อส่งค่าไป backend -->
+                            <input type="hidden" name="status" :value="current.status">
                         </div>
                     </div>
 
@@ -91,8 +101,7 @@
                         <button
                             type="submit"
                             class="px-6 py-2 bg-green-600 hover:bg-green-700
-                                text-white font-semibold rounded-lg"
-                        >
+                                text-white font-semibold rounded-lg">
                             <span x-show="mode === 'create'">บันทึกข้อมูล</span>
                             <span x-show="mode === 'edit'">อัปเดตข้อมูล</span>
                         </button>

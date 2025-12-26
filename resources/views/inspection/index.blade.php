@@ -9,13 +9,34 @@
             </a>
         </div>
     </x-slot>
+    <div x-data="{
+            open: false,
+            mode: 'create', // create | edit
+            current: {
+                id: null,
+                checklist_name: '',
+                status: 1
+            },
+            confirmDelete: false,
+            baseUrl: '{{ url('checklist') }}',
+            deleteId: null,
+            deleteName: '',
+        }">
     <div class="py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <a href="{{ route('check_sheet.create') }}" class="btn btn-success">
-                        <i class="bi bi-plus-circle"></i> เพิ่มข้อมูล
-                    </a>
+                    <div class="flex sticky justify-between items-end">
+                            <button
+                                @click="
+                                    mode = 'create';
+                                    current = { id: null, checklist_name: '', status: 1 };
+                                    open = true;"
+                                class="btn btn-success">
+                                <b><i class="bi bi-plus-circle"></i></b> เพิ่มข้อมูล
+                            </button>
+                            <x-per-page />
+                        </div>
                     <div class="overflow-x-auto pt-6">
                         <table class="min-w-full border table-auto border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
                             <thead class="bg-gray-100 dark:bg-gray-700">
@@ -26,26 +47,25 @@
                                     <th class="px-4 py-3 text-left text-sm font-semibold">เวลาที่ตรวจ</th>
                                     <th class="px-4 py-3 text-left text-sm font-semibold">ผู้บันทึก</th>
                                     <th class="px-4 py-3 text-left text-sm font-semibold">หมายเหตุ</th>
-                                    <th class="px-4 py-3 text-center text-sm font-semibold">รายละเอียด</th>
-                                    <th class="px-4 py-3 text-center text-sm font-semibold">ลบ</th>
+                                    <th class="px-4 py-3 text-center text-sm font-semibold">จัดการ</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                             @forelse ($lists as $item)
                                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                                    <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                    <td class="px-4 py-3 font-medium">{{ $item->electrical_number }}</td>
-                                    <td class="px-4 py-3">{{ $item->check_date }}</td>
-                                    <td class="px-4 py-3">{{ $item->check_time }}</td>
-                                    <td class="px-4 py-3">{{ $item->created_by }}</td>
+                                    <td class="px-4 py-3">{{ $lists->firstItem() + $loop->index }}</td>
+                                    <td class="px-4 py-3">{{ $item->inspection_no }}</td>
+                                    <td class="px-4 py-3">{{ $item->inspection_date }}</td>
+                                    <td class="px-4 py-3">{{ $item->inspection_time }}</td>
+                                    <td class="px-4 py-3">{{ $item->user_id }}</td>
                                     <td class="px-4 py-3 text-gray-500">{{ $item->remark ?? '-' }}</td>
                                     <td class="px-4 py-3 text-center">
-                                        <a href="{{ route('check_sheet.show', $item->id) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition">
+                                        <a href="{{ route('inspection.show', $item->id) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition">
                                             🔍
                                         </a>
                                     </td>
                                     <td class="px-4 py-3 text-center">
-                                        <form method="POST" action="{{ route('check_sheet.destroy', $item->id) }}">
+                                        <form method="POST" action="{{ route('inspection.destroy', $item->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <button onclick="return confirm('ยืนยันการลบ?')" class="inline-flex items-center px-3 py-1.5 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition">
@@ -63,23 +83,23 @@
                                 </tr>
                             @endforelse
                             </tbody>
-                            @if($lists->count())
+                            <!-- @if($lists->count()) -->
                             <tfoot class="bg-gray-100 dark:bg-gray-700 border-t border-gray-300 dark:border-gray-600">
                                 <tr>
-                                    <td colspan="7"
-                                        class="px-4 py-3 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">
-                                        จำนวนรายการทั้งหมด
-                                    </td>
-                                    <td class="px-4 py-3 text-center font-bold text-gray-900 dark:text-white">
-                                        {{ $lists->count() }} รายการ
-                                    </td>
+                                    <td colspan="7" class="px-3 py-2 text-right text-sm font-semibold">
+                                            <x-pagination :lists="$lists" />
+                                        </td>
                                 </tr>
                             </tfoot>
-                            @endif
+                            <!-- @endif -->
                         </table>
                     </div>
+                        <x-modal-delete />
                 </div>
             </div>
         </div>
+        @include('inspection.modal')
     </div>
+    <x-toast-validation />
+    <x-toast />
 </x-app-layout>

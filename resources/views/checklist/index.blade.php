@@ -21,29 +21,47 @@
             <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <button
-                            @click="
-                                mode = 'create';
-                                current = { id: null, checklist_name: '', status: 1 };
-                                open = true;
-                            "
-                            class="btn btn-success">
-                            <b><i class="bi bi-plus-circle"></i></b> เพิ่มรายการ
-                        </button>
+                        <div class="flex sticky justify-between items-end">
+                            <button
+                                @click="
+                                    mode = 'create';
+                                    current = { id: null, checklist_name: '', status: 1 };
+                                    open = true;"
+                                class="btn btn-success">
+                                <b><i class="bi bi-plus-circle"></i></b> เพิ่มรายการ
+                            </button>
+                            <x-per-page />
+                        </div>
                         <div class="overflow-x-auto pt-6">
                             <table class="min-w-full table-auto border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
                                 <thead class="bg-gray-100 dark:bg-gray-700">
                                     <tr>
                                         <th class="px-4 py-3 text-left text-sm font-semibold">ลำดับ</th>
                                         <th class="px-4 py-3 text-left text-sm font-semibold">รายการตรวจสอบ</th>
+                                        <th class="px-4 py-3 text-center text-sm font-semibold">สถานะ</th>
                                         <th class="px-4 py-3 text-center text-sm font-semibold">จัดการ</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                                     @forelse ($lists as $item)
                                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                                        <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-3">{{ $lists->firstItem() + $loop->index }}</td>
                                         <td class="px-4 py-3">{{ $item->checklist_name }}</td>
+                                        <td class="px-4 py-3 text-center">
+                                            @if ($item->status == 1)
+                                            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full
+                                                    bg-green-100 text-green-700 text-sm font-medium">
+                                                <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                                เปิดใช้งาน
+                                            </span>
+                                            @else
+                                            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full
+                                                    bg-red-100 text-red-700 text-sm font-medium">
+                                                <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                                                ปิดใช้งาน
+                                            </span>
+                                            @endif
+                                        </td>
                                         <td class="px-4 py-3 text-center">
                                             <div class="flex items-center justify-center gap-2">
                                                 <div class="relative group">
@@ -91,12 +109,8 @@
                                 @if($lists->count())
                                 <tfoot class="bg-gray-100 dark:bg-gray-700">
                                     <tr>
-                                        <td colspan="2"
-                                            class="px-4 py-3 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">
-                                            จำนวนรายการทั้งหมด
-                                        </td>
-                                        <td class="px-4 py-3 text-center text-sm font-bold text-gray-900 dark:text-white">
-                                            {{ $lists->count() }} รายการ
+                                        <td colspan="4" class="px-3 py-2 text-right text-sm font-semibold">
+                                            <x-pagination :lists="$lists" />
                                         </td>
                                     </tr>
                                 </tfoot>

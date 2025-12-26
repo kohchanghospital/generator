@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CheckSheetController;
+use App\Http\Controllers\InspectionController;
 use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\ChecklistController;
 use Illuminate\Support\Facades\Route;
@@ -17,12 +17,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/check-sheet', [CheckSheetController::class, 'index'])->name('check_sheet.index');
-Route::post('/check-sheet', [CheckSheetController::class, 'store'])->name('check_sheet.store');
-Route::get('/check-sheet/create', [CheckSheetController::class, 'create'])->name('check_sheet.create');
-Route::get('/check-sheet/failed', [CheckSheetController::class, 'failed'])->name('check_sheet.failed');
-Route::get('/check-sheet/{id}', [CheckSheetController::class, 'show'])->name('check_sheet.show');
-Route::delete('/check-sheet/{id}', [CheckSheetController::class, 'destroy'])->name('check_sheet.destroy');
+Route::get('/inspection', [InspectionController::class, 'index'])->name('inspection.index');
+Route::post('/inspection', [InspectionController::class, 'store'])->name('inspection.store');
+Route::get('/inspection/create', [InspectionController::class, 'create'])->name('inspection.create');
+Route::get('/inspection/failed', [InspectionController::class, 'failed'])->name('inspection.failed');
+Route::get('/inspection/{id}', [InspectionController::class, 'show'])->name('inspection.show');
+Route::delete('/inspection/{id}', [InspectionController::class, 'destroy'])->name('inspection.destroy');
 
 Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
 Route::post('/checklist', [ChecklistController::class, 'store'])->name('checklist.store');

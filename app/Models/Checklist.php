@@ -10,4 +10,9 @@ class Checklist extends Model
         'checklist_name',
         'status'
     ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
 }

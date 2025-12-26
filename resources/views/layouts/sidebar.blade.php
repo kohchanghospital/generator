@@ -13,12 +13,12 @@
             <span>Dashboard</span>
         </a>
 
-        <a href="{{ route('check_sheet.index') }}" class="sidebar-item">
+        <a href="{{ route('inspection.index') }}" class="sidebar-item">
             <span class="sideber-icon">📋</span>
             <span>รายละเอียดตรวจเช็คเครื่องปั่นไฟ</span>
         </a>
 
-        <a href="{{ route('check_sheet.failed') }}" class="sidebar-item">
+        <a href="{{ route('inspection.failed') }}" class="sidebar-item">
             <span class="sideber-icon">⛔️</span>
             <span>รายการตรวจเช็คเครื่องปั่นไฟไม่ผ่าน</span>
         </a>

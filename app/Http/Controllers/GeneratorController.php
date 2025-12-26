@@ -10,10 +10,15 @@ class GeneratorController extends Controller
 {
 
     // หน้าแสดงตาราง
-    public function index()
+    public function index(Request $request)
     {
-        $lists = Generator::all();
-        return view('generator.index', compact('lists'));
+        $perPage = $request->get('per_page', 20); // ค่าเริ่มต้น 20
+
+        $lists = Generator::orderBy('id')
+            ->paginate($perPage)
+            ->withQueryString(); // จำค่า per_page เวลาเปลี่ยนหน้า
+
+        return view('generator.index', compact('lists', 'perPage'));
     }
 
     public function store(Request $request)

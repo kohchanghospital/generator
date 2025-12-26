@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
 
-        Schema::create('generator_checklists', function (Blueprint $table) {
+        Schema::create('check_sheets', function (Blueprint $table) {
             $table->id();
             $table->string('electrical_number');
             $table->date('check_date');
