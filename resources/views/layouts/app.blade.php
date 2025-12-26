@@ -63,7 +63,7 @@
     </div>
 
     {{-- Footer --}}
-    <footer class="py-4 text-center text-sm text-gray-400 border-t border-gray-700">
+    <footer class="py-4 text-center text-sm text-gray-400 bg-white dark:bg-gray-800 shadow">
         © {{ date('Y') }} Kohchang Hospital. All rights reserved.
     </footer>
 
