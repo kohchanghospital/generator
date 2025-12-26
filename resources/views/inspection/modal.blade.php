@@ -60,8 +60,8 @@
                                     disabled
                                     placeholder="INS-2025-00XX"
                                     class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                    bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                    focus:ring-2 focus:ring-green-500 focus:outline-none">
+                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
                             </div>
                             {{-- วันที่ตรวจ --}}
                             <div class="md:col-span-1">
@@ -74,8 +74,8 @@
                                     x-model="current.inspection_date"
                                     required
                                     class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                    bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                    focus:ring-2 focus:ring-green-500 focus:outline-none">
+                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
                             </div>
                             {{-- เวลาที่ตรวจ --}}
                             <div class="md:col-span-1">
@@ -88,8 +88,8 @@
                                     x-model="current.inspection_time"
                                     required
                                     class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                    bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                    focus:ring-2 focus:ring-green-500 focus:outline-none">
+                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
                             </div>
                             {{-- เครื่องปั่นไฟ --}}
                             <div class="md:col-span-4">
@@ -102,8 +102,8 @@
                                     id="generator_id"
                                     x-model="current.generator_id"
                                     class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                    bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                    focus:ring-2 focus:ring-green-500 focus:outline-none">
+                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
                                     <option value="">-- เลือกเครื่องปั่นไฟ --</option>
                                     @foreach ($generators as $generator)
                                     <option value="{{ $generator->id }}">
@@ -123,17 +123,17 @@
                                     x-model="current.remark"
                                     placeholder="กรอกหมายเหตุ"
                                     class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                    bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                    focus:ring-2 focus:ring-green-500 focus:outline-none">
+                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
                             </div>
                             {{-- ตารางตรวจสอบ --}}
                             <div class="md:col-span-4">
                                 <label class="block mb-2 text-sm font-medium">
                                     ตารางตรวจสอบ :
                                 </label>
-                                <div class="max-h-[45vh] overflow-y-auto border border-gray-200 dark:border-gray-700 rounded-lg">
-                                    <table class="min-w-full border table-auto border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                                        <thead class="bg-gray-100 dark:bg-gray-700">
+                                <div class="max-h-[40vh] md:max-h-[50vh] overflow-y-auto border scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 border-gray-200 dark:border-gray-700 rounded-lg">
+                                    <table class="min-w-full table-auto border-gray-200 dark:border-gray-700 rounded-lg ">
+                                        <thead class="bg-gray-100 dark:bg-gray-700 sticky top-0 z-10">
                                             <tr>
                                                 <th class="px-4 py-3 text-center text-sm font-semibold">ลำดับ</th>
                                                 <th class="px-4 py-3 text-left text-sm font-semibold">รายการตรวจสอบ</th>
@@ -144,29 +144,29 @@
                                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                                             @forelse ($checklist as $item)
                                             <tr>
-                                                <td class="px-1 py-3 text-center text-gray-500">
+                                                <td class="px-1 py-1 text-center text-gray-500">
                                                     {{ $loop->iteration }}
                                                 </td>
-                                                <td class="px-4 py-3">
+                                                <td class="px-4 py-1">
                                                     {{ $item->checklist_name }}
                                                 </td>
-                                                <td class="px-4 py-3">
+                                                <td class="px-4 py-1">
                                                     <select
                                                         name="results[{{ $item->id }}][status]"
                                                         class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
+                                                            bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                                            focus:ring-2 focus:ring-green-500 focus:outline-none">
                                                         <option value="1">ผ่าน</option>
                                                         <option value="2">ไม่ผ่าน</option>
                                                         <option selected value="3">ไม่ได้ตรวจสอบ</option>
                                                     </select>
                                                 </td>
-                                                <td class="px-4 py-3">
+                                                <td class="px-4 py-1">
                                                     <input
                                                         name="results[{{ $item->id }}][remark]"
                                                         class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                                    bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                                    focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                                            bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                                            focus:ring-2 focus:ring-green-500 focus:outline-none"
                                                         type="text">
                                                 </td>
                                             </tr>

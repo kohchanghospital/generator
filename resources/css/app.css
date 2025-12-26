@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer base {
     body {
@@ -10,21 +8,32 @@
 }
 
 .sidebar-item {
-    @apply flex flex-col items-center gap-1 text-center text-gray-600 dark:text-gray-300 hover:text-teal-500 transition;
+    @apply flex flex-col items-center gap-1 text-center
+           text-gray-600 dark:text-gray-300
+           hover:text-teal-500 transition;
 }
 
 .sideber-icon {
     @apply text-2xl;
 }
 
+/* 🔵 Primary */
 .btn-primary {
-    @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+    @apply py-2 px-4 bg-blue-500 text-white font-semibold
+           rounded-lg shadow-md hover:bg-blue-700
+           focus:outline-none focus:ring-2 focus:ring-blue-400/75;
 }
 
+/* 🟢 Success */
 .btn-success {
-    @apply py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75;
+    @apply py-2 px-4 bg-green-600 text-white font-semibold
+           rounded-lg shadow-md hover:bg-green-700
+           focus:outline-none focus:ring-2 focus:ring-green-400/75;
 }
 
+/* 🔴 Danger */
 .btn-danger {
-    @apply py-2 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75;
+    @apply py-2 px-4 bg-red-600 text-white font-semibold
+           rounded-lg shadow-md hover:bg-red-700
+           focus:outline-none focus:ring-2 focus:ring-red-400/75;
 }
