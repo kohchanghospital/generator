@@ -12,9 +12,7 @@
         x-show="open"
         x-transition
         class="fixed inset-0 z-50 flex items-center justify-center px-4">
-
         <div class="bg-white dark:bg-gray-800 w-full max-w-4xl rounded-lg shadow-lg">
-
             <!-- Header -->
             <div class="flex justify-between items-center px-6 py-4 border-b dark:border-gray-700">
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
@@ -26,227 +24,164 @@
                     ✕
                 </button>
             </div>
-
             <!-- Body -->
             <div class="p-6 text-gray-900 dark:text-gray-100">
-
                 <form
                     method="POST"
                     :action="mode === 'create'
                         ? '{{ route('inspection.store') }}'
-                        : '{{ url('inspection') }}/' + current.id">
+                        : '{{ route('inspection.update', ':id') }}'.replace(':id', current.id)">
                     @csrf
-                    <!-- ================= VIEW MODE ================= -->
-                    <template x-if="mode === 'view'">
-                        <div class="space-y-6 text-sm text-gray-900 dark:text-gray-100">
-
-                            <div class="grid grid-cols-2 gap-6">
-                                <div>
-                                    <p class="font-semibold">เลขที่ใบตรวจ</p>
-                                    <p x-text="current.inspection_no"></p>
-                                </div>
-
-                                <div>
-                                    <p class="font-semibold">วันที่ / เวลา</p>
-                                    <p>
-                                        <span x-text="current.inspection_date"></span>
-                                        <span x-text="current.inspection_time"></span>
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <p class="font-semibold">เครื่องปั่นไฟ</p>
-                                    <p x-text="current.generator_name"></p>
-                                </div>
-
-                                <div>
-                                    <p class="font-semibold">ผู้บันทึก</p>
-                                    <p x-text="current.user_name"></p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <p class="font-semibold">หมายเหตุ</p>
-                                <p class="border rounded p-3 bg-gray-50 dark:bg-gray-700"
-                                    x-text="current.remark || '-'"></p>
-                            </div>
-
-                            <div>
-                                <p class="font-semibold mb-2">รายการตรวจสอบ</p>
-                                <table class="w-full border text-sm">
-                                    <thead class="bg-gray-100 dark:bg-gray-700">
+                    <template x-if="mode === 'edit'">
+                        <input type="hidden" name="_method" value="PUT">
+                    </template>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6 items-end">
+                        {{-- เลขที่ใบตรวจ --}}
+                        <div class="md:col-span-2">
+                            <label class="block mb-2 text-sm font-medium">
+                                เลขที่ใบตรวจ :
+                            </label>
+                            <input
+                                type="text"
+                                name="inspection_no"
+                                x-model="current.inspection_no"
+                                disabled
+                                placeholder="INS-2025-00XX"
+                                class="w-full rounded-lg border border-gray-300 dark:border-gray-600
+                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
+                        </div>
+                        {{-- วันที่ตรวจ --}}
+                        <div class="md:col-span-1">
+                            <label class="block mb-2 text-sm font-medium">
+                                วันที่ตรวจ :
+                            </label>
+                            <input
+                                type="date"
+                                name="inspection_date"
+                                x-model="current.inspection_date"
+                                required
+                                class="w-full rounded-lg border border-gray-300 dark:border-gray-600
+                                        bg-gray-50 dark:bg-gray-800 px-4 py-2
+                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
+                        </div>
+                        {{-- เวลาที่ตรวจ --}}
+                        <div class="md:col-span-1">
+                            <label class="block mb-2 text-sm font-medium">
+                                เวลาที่ตรวจ :
+                            </label>
+                            <input
+                                type="time"
+                                name="inspection_time"
+                                x-model="current.inspection_time"
+                                required
+                                class="w-full rounded-lg border border-gray-300 dark:border-gray-600
+                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
+                        </div>
+                        {{-- เครื่องปั่นไฟ --}}
+                        <div class="md:col-span-4">
+                            <label class="block mb-2 text-sm font-medium">
+                                เครื่องปั่นไฟ :
+                            </label>
+                            <select
+                                required
+                                name="generator_id"
+                                id="generator_id"
+                                x-model="current.generator_id"
+                                class="w-full rounded-lg border border-gray-300 dark:border-gray-600
+                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
+                                <option value="">-- เลือกเครื่องปั่นไฟ --</option>
+                                @foreach ($generators as $generator)
+                                <option value="{{ $generator->id }}">
+                                    {{ $generator->machine_code }} | {{ $generator->asset_name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        {{-- หมายเหตุ --}}
+                        <div class="md:col-span-4">
+                            <label class="block mb-2 text-sm font-medium">
+                                หมายเหตุ :
+                            </label>
+                            <input
+                                type="text"
+                                name="remark"
+                                x-model="current.remark"
+                                :placeholder="mode !== 'view' ? 'กรอกหมายเหตุ' : '-'"
+                                class="w-full rounded-lg border border-gray-300 dark:border-gray-600
+                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
+                        </div>
+                        {{-- ตารางตรวจสอบ --}}
+                        <div class="md:col-span-4">
+                            <label class="block mb-2 text-sm font-medium">
+                                ตารางตรวจสอบ :
+                            </label>
+                            <div class="max-h-[40vh] md:max-h-[45vh] overflow-y-auto border scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 border-gray-200 dark:border-gray-700 rounded-lg">
+                                <table class="min-w-full table-auto border-gray-200 dark:border-gray-700 rounded-lg ">
+                                    <thead class="bg-gray-100 dark:bg-gray-700 sticky top-0 z-10">
                                         <tr>
-                                            <th class="border px-2 py-1">ลำดับ</th>
-                                            <th class="border px-2 py-1 text-left">รายการ</th>
-                                            <th class="border px-2 py-1">สถานะ</th>
-                                            <th class="border px-2 py-1 text-left">หมายเหตุ</th>
+                                            <th class="px-4 py-3 text-center text-sm font-semibold">ลำดับ</th>
+                                            <th class="px-4 py-3 text-left text-sm font-semibold">รายการตรวจสอบ</th>
+                                            <th class="px-4 py-3 text-left text-sm font-semibold">สถานะ</th>
+                                            <th class="px-4 py-3 text-left text-sm font-semibold">หมายเหตุ</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <template x-for="(row, i) in current.checklist" :key="i">
-                                            <tr>
-                                                <td class="border px-2 py-1 text-center" x-text="i + 1"></td>
-                                                <td class="border px-2 py-1" x-text="row.name"></td>
-                                                <td class="border px-2 py-1 text-center" x-text="statusText(row.status)"></td>
-                                                <td class="border px-2 py-1" x-text="row.remark || '-'"></td>
-                                            </tr>
-                                        </template>
+                                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                        @forelse ($checklist as $item)
+                                        <tr>
+                                            <td class="px-1 py-1 text-center text-gray-500">
+                                                {{ $loop->iteration }}
+                                            </td>
+                                            <td class="px-4 py-1">
+                                                {{ $item->checklist_name }}
+                                            </td>
+                                            <td class="px-4 py-1">
+                                                <select
+                                                    :value="current.checklist?.[{{ $item->id }}]?.status ?? 3"
+                                                    name="results[{{ $item->id }}][status]"
+                                                    class="w-full rounded-lg border border-gray-300 dark:border-gray-600
+                                                            bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                                            focus:ring-2 focus:ring-green-500 focus:outline-none">
+                                                    <option value="1">ผ่าน</option>
+                                                    <option value="2">ไม่ผ่าน</option>
+                                                    <option value="3">ไม่ได้ตรวจสอบ</option>
+                                                </select>
+                                            </td>
+                                            <td class="px-4 py-1">
+                                                <input
+                                                    :value="current.checklist?.[{{ $item->id }}]?.remark ?? ''"
+                                                    name="results[{{ $item->id }}][remark]"
+                                                    class="w-full rounded-lg border border-gray-300 dark:border-gray-600
+                                                            bg-gray-50 dark:bg-gray-800 px-4 py-2 
+                                                            focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                                    type="text">
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="3"
+                                                class="px-4 py-6 text-center text-gray-500 dark:text-gray-400">
+                                                🚫 ไม่มีข้อมูลรายการตรวจเช็ค
+                                            </td>
+                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </template>
-                    <template x-if="mode !== 'view'">
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6 items-end">
-                            {{-- เลขที่ใบตรวจ --}}
-                            <div class="md:col-span-2">
-                                <label class="block mb-2 text-sm font-medium">
-                                    เลขที่ใบตรวจ :
-                                </label>
-                                <input
-                                    type="text"
-                                    name="inspection_no"
-                                    x-model="current.inspection_no"
-                                    disabled
-                                    placeholder="INS-2025-00XX"
-                                    class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
-                            </div>
-                            {{-- วันที่ตรวจ --}}
-                            <div class="md:col-span-1">
-                                <label class="block mb-2 text-sm font-medium">
-                                    วันที่ตรวจ :
-                                </label>
-                                <input
-                                    type="date"
-                                    name="inspection_date"
-                                    x-model="current.inspection_date"
-                                    required
-                                    class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
-                            </div>
-                            {{-- เวลาที่ตรวจ --}}
-                            <div class="md:col-span-1">
-                                <label class="block mb-2 text-sm font-medium">
-                                    เวลาที่ตรวจ :
-                                </label>
-                                <input
-                                    type="time"
-                                    name="inspection_time"
-                                    x-model="current.inspection_time"
-                                    required
-                                    class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
-                            </div>
-                            {{-- เครื่องปั่นไฟ --}}
-                            <div class="md:col-span-4">
-                                <label class="block mb-2 text-sm font-medium">
-                                    เครื่องปั่นไฟ :
-                                </label>
-                                <select
-                                    required
-                                    name="generator_id"
-                                    id="generator_id"
-                                    x-model="current.generator_id"
-                                    class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
-                                    <option value="">-- เลือกเครื่องปั่นไฟ --</option>
-                                    @foreach ($generators as $generator)
-                                    <option value="{{ $generator->id }}">
-                                        {{ $generator->machine_code }} | {{ $generator->asset_name }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            {{-- หมายเหตุ --}}
-                            <div class="md:col-span-4">
-                                <label class="block mb-2 text-sm font-medium">
-                                    หมายเหตุ :
-                                </label>
-                                <input
-                                    type="text"
-                                    name="remark"
-                                    x-model="current.remark"
-                                    :placeholder="mode !== 'view' ? 'กรอกหมายเหตุ' : '-'"
-                                    class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                        bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                        focus:ring-2 focus:ring-green-500 focus:outline-none">
-                            </div>
-                            {{-- ตารางตรวจสอบ --}}
-                            <div class="md:col-span-4">
-                                <label class="block mb-2 text-sm font-medium">
-                                    ตารางตรวจสอบ :
-                                </label>
-                                <div class="max-h-[40vh] md:max-h-[45vh] overflow-y-auto border scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 border-gray-200 dark:border-gray-700 rounded-lg">
-                                    <table class="min-w-full table-auto border-gray-200 dark:border-gray-700 rounded-lg ">
-                                        <thead class="bg-gray-100 dark:bg-gray-700 sticky top-0 z-10">
-                                            <tr>
-                                                <th class="px-4 py-3 text-center text-sm font-semibold">ลำดับ</th>
-                                                <th class="px-4 py-3 text-left text-sm font-semibold">รายการตรวจสอบ</th>
-                                                <th class="px-4 py-3 text-left text-sm font-semibold">สถานะ</th>
-                                                <th class="px-4 py-3 text-left text-sm font-semibold">หมายเหตุ</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                            @forelse ($checklist as $item)
-                                            <tr>
-                                                <td class="px-1 py-1 text-center text-gray-500">
-                                                    {{ $loop->iteration }}
-                                                </td>
-                                                <td class="px-4 py-1">
-                                                    {{ $item->checklist_name }}
-                                                </td>
-                                                <td class="px-4 py-1">
-                                                    <select
-                                                        :value="current.checklist?.[{{ $item->id }}]?.status ?? 3"
-                                                        name="results[{{ $item->id }}][status]"
-                                                        class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                                            bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                                            focus:ring-2 focus:ring-green-500 focus:outline-none">
-                                                        <option value="1">ผ่าน</option>
-                                                        <option value="2">ไม่ผ่าน</option>
-                                                        <option value="3">ไม่ได้ตรวจสอบ</option>
-                                                    </select>
-                                                </td>
-                                                <td class="px-4 py-1">
-                                                    <input
-                                                        :value="current.checklist?.[{{ $item->id }}]?.remark ?? ''"
-                                                        name="results[{{ $item->id }}][remark]"
-                                                        class="w-full rounded-lg border border-gray-300 dark:border-gray-600
-                                                            bg-gray-50 dark:bg-gray-800 px-4 py-2 
-                                                            focus:ring-2 focus:ring-green-500 focus:outline-none"
-                                                        type="text">
-                                                </td>
-                                            </tr>
-                                            @empty
-                                            <tr>
-                                                <td colspan="3"
-                                                    class="px-4 py-6 text-center text-gray-500 dark:text-gray-400">
-                                                    🚫 ไม่มีข้อมูลรายการตรวจเช็ค
-                                                </td>
-                                            </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
+                    </div>
                     <!-- Footer -->
                     <div class="flex justify-end gap-3">
                         <button
                             type="button"
                             @click="open = false"
                             class="px-5 py-2 rounded-lg border border-gray-300 dark:border-gray-600">
-                            <span x-show="mode !== 'view'">ยกเลิก</span>
-                            <span x-show="mode === 'view'">ปิด</span>
+                            <span>ยกเลิก</span>
                         </button>
                         <button
-                            x-show="mode !== 'view'"
                             type="submit"
                             class="px-6 py-2 bg-green-600 hover:bg-green-700
                                 text-white font-semibold rounded-lg">

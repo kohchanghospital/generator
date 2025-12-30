@@ -99,8 +99,8 @@
                                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                                         <td class="px-4 py-3">{{ $lists->firstItem() + $loop->index }}</td>
                                         <td class="px-4 py-3">{{ $item->inspection_no }}</td>
-                                        <td class="px-4 py-3">{{ $item->inspection_date }}</td>
-                                        <td class="px-4 py-3">{{ $item->inspection_time }}</td>
+                                        <td class="px-4 py-3">{{ \Carbon\Carbon::parse($item->inspection_date)->format('d/m/Y') }}</td>
+                                        <td class="px-4 py-3">{{ \Carbon\Carbon::parse($item->inspection_time)->format('H:i')}}</td>
                                         <td class="px-4 py-3">{{ $item->user->name }}</td>
                                         <td class="px-4 py-3 text-gray-500">{{ $item->remark ?? '-' }}</td>
                                         <td class="px-4 py-3 text-center">
@@ -120,12 +120,12 @@
                                                     <a href="{{ route('inspection.pdf', $item->id) }}"
                                                         target="_blank"
                                                         class="inline-flex items-center justify-center w-8 h-8 rounded-full
-                                                            bg-blue-200 text-blue-900 hover:bg-blue-300 transition">
+                                                            bg-orange-200 text-orange-900 hover:bg-orange-300 transition">
                                                         <i class="bi bi-file-pdf"></i>
                                                     </a>
                                                     <span
                                                         class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
-                                                        ดูรายละเอียด
+                                                        pdf
                                                     </span>
                                                 </div>
                                                 <div class="relative group">
@@ -150,7 +150,6 @@
                                     </tr>
                                     @endforelse
                                 </tbody>
-                                <!-- @if($lists->count()) -->
                                 <tfoot class="bg-gray-100 dark:bg-gray-700 border-t border-gray-300 dark:border-gray-600">
                                     <tr>
                                         <td colspan="7" class="px-3 py-2 text-right text-sm font-semibold">
@@ -158,7 +157,6 @@
                                         </td>
                                     </tr>
                                 </tfoot>
-                                <!-- @endif -->
                             </table>
                         </div>
                         <x-modal-delete />

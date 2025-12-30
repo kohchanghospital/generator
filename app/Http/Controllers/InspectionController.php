@@ -38,6 +38,26 @@ class InspectionController extends Controller
         ));
     }
 
+    // หน้าเฉพาะรายการ "ไม่ผ่าน"
+    public function exception(Request $request)
+    {
+        $lists = Inspection::whereHas('checklistResults', function ($q) {
+            $q->whereIn('status', [2, 3]);
+        })
+            ->with(['generator', 'user'])
+            ->latest()
+            ->paginate(20);
+
+        $generators = Generator::active()->orderBy('machine_code')->get();
+        $checklist  = Checklist::active()->orderBy('id')->get();
+
+        return view('inspection.exception', compact(
+            'lists',
+            'generators',
+            'checklist'
+        ));
+    }
+
 
     // หน้าเพิ่มข้อมูล
     public function create()
@@ -99,6 +119,63 @@ class InspectionController extends Controller
         }
     }
 
+    public function update(Request $request, Inspection $inspection)
+    {
+        try {
+            $validated = $request->validate([
+                'inspection_date'   => 'required|date',
+                'inspection_time'   => 'required',
+                'generator_id'      => 'required|exists:generators,id',
+                'remark'            => 'nullable|string',
+                'results'           => 'required|array',
+                'results.*.status'  => 'required|in:1,2,3',
+                'results.*.remark'  => 'nullable|string',
+            ]);
+
+            DB::transaction(function () use ($validated, $inspection) {
+
+                // 1️⃣ update inspections (master)
+                $inspection->update([
+                    'inspection_date' => $validated['inspection_date'],
+                    'inspection_time' => $validated['inspection_time'],
+                    'generator_id'    => $validated['generator_id'],
+                    'remark'          => $validated['remark'] ?? null,
+                ]);
+
+                // 2️⃣ update / create inspection_checklists (detail)
+                foreach ($validated['results'] as $checklistId => $result) {
+
+                    InspectionChecklist::updateOrCreate(
+                        [
+                            'inspection_id' => $inspection->id,
+                            'checklist_id'  => $checklistId,
+                        ],
+                        [
+                            'status' => $result['status'],
+                            'remark' => $result['remark'] ?? null,
+                        ]
+                    );
+                }
+            });
+
+            return redirect()
+                ->route('inspection.exception')
+                ->with([
+                    'toast_type' => 'update',
+                    'toast_message' => 'บันทึกรายการตรวจเช็คเรียบร้อยแล้ว'
+                ]);
+        } catch (\Exception $e) {
+
+            return redirect()
+                ->route('inspection.exception')
+                ->with([
+                    'toast_type' => 'error',
+                    'toast_message' => 'ไม่สามารถบันทึกรายการตรวจเช็คได้'
+                ]);
+        }
+    }
+
+
     // ดูรายละเอียด
     public function show(Inspection $inspection)
     {
@@ -136,21 +213,6 @@ class InspectionController extends Controller
         }
     }
 
-    // หน้าเฉพาะรายการ "ไม่ผ่าน"
-    public function failed(Request $request)
-    {
-        $perPage = $request->get('per_page', 20);
-
-        $lists = Inspection::whereHas('items', function ($q) {
-            $q->where('status_id', 2); // 2 = ไม่ผ่าน
-        })
-            ->latest()
-            ->paginate($perPage)
-            ->withQueryString();
-
-        return view('inspection.failed', compact('lists'));
-    }
-
     public function previewNo()
     {
         $year = now()->year;
@@ -181,7 +243,7 @@ class InspectionController extends Controller
         $pdf = Pdf::loadView('inspection.pdf', compact('inspection'))
             ->setPaper('A4', 'portrait');
 
-        return $pdf->stream('inspection-'.$inspection->inspection_no.'.pdf');
+        return $pdf->stream('inspection-' . $inspection->inspection_no . '.pdf');
     }
 
     public function view(Inspection $inspection)
@@ -193,5 +255,37 @@ class InspectionController extends Controller
         ]);
 
         return view('inspection.view', compact('inspection'));
+    }
+
+    public function calendar()
+    {
+        return view('inspection.calendar');
+    }
+
+    public function calendarEvents()
+    {
+        $events = Inspection::with(['generator', 'checklistResults'])
+            ->get()
+            ->map(function ($item) {
+
+                // ถ้ามี ไม่ผ่าน(2) หรือ ไม่ได้ตรวจ(3)
+                $hasProblem = $item->checklistResults
+                    ->whereIn('status', [2, 3])
+                    ->isNotEmpty();
+
+                return [
+                    'id'    => $item->id,
+                    'title' => $item->inspection_no . ' | ' . $item->generator->machine_code,
+                    'start' => $item->inspection_date,
+                    'url'   => route('inspection.view', $item->id),
+
+                    // 👇 ตรงนี้แหละ
+                    'backgroundColor' => $hasProblem ? '#ef4444' : '#22c55e',
+                    'borderColor'     => $hasProblem ? '#dc2626' : '#16a34a',
+                    'textColor'       => '#ffffff',
+                ];
+            });
+
+        return response()->json($events);
     }
 }

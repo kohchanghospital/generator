@@ -50,7 +50,6 @@ class Inspection extends Model
         });
     }
 
-
     public function checklistResults()
     {
         return $this->hasMany(InspectionChecklist::class);

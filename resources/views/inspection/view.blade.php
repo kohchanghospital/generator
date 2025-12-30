@@ -23,7 +23,7 @@
                             <div><b>วันที่:</b> {{ \Carbon\Carbon::parse($inspection->inspection_date.' '.$inspection->inspection_time)->format('d/m/Y H:i') }} น.<br>
                             </div>
                         </div>
-                        <div><b>เครื่องปั่นไฟ:</b> {{ $inspection->generator->asset_name }} ( {{ $inspection->generator->machine_code }} )</div>
+                        <div><b>เครื่องปั่นไฟ:</b> {{ $inspection->generator->machine_code }} | {{ $inspection->generator->asset_name }} </div>
                         <div><b>ผู้บันทึก:</b> {{ $inspection->user->name }}</div>
                         <div><b>หมายเหตุ:</b> {{ $inspection->remark ?? '-' }}</div>
 
