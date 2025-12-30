@@ -18,7 +18,7 @@
             <!-- Header -->
             <div class="flex justify-between items-center px-6 py-4 border-b dark:border-gray-700">
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                    <span x-show="mode === 'view'">ดูข้อมูลการตรวจเช็คเครื่องปั่นไฟ</span>
+                    <span x-show="mode === 'view'">ข้อมูลการตรวจเช็คเครื่องปั่นไฟ</span>
                     <span x-show="mode === 'create'">บันทึกข้อมูลการตรวจเช็คเครื่องปั่นไฟ</span>
                     <span x-show="mode === 'edit'">แก้ไขข้อมูลการตรวจเช็คเครื่องปั่นไฟ</span>
                 </h2>
@@ -36,15 +36,67 @@
                         ? '{{ route('inspection.store') }}'
                         : '{{ url('inspection') }}/' + current.id">
                     @csrf
-                    <template x-if="mode === 'edit'">
-                        @method('PUT')
-                    </template>
+                    <!-- ================= VIEW MODE ================= -->
+                    <template x-if="mode === 'view'">
+                        <div class="space-y-6 text-sm text-gray-900 dark:text-gray-100">
 
-                    <fieldset
-                        :disabled="mode === 'view'"
-                        :class="mode === 'view'
-                            ? 'opacity-70 grayscale pointer-events-none'
-                            : ''">
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <p class="font-semibold">เลขที่ใบตรวจ</p>
+                                    <p x-text="current.inspection_no"></p>
+                                </div>
+
+                                <div>
+                                    <p class="font-semibold">วันที่ / เวลา</p>
+                                    <p>
+                                        <span x-text="current.inspection_date"></span>
+                                        <span x-text="current.inspection_time"></span>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p class="font-semibold">เครื่องปั่นไฟ</p>
+                                    <p x-text="current.generator_name"></p>
+                                </div>
+
+                                <div>
+                                    <p class="font-semibold">ผู้บันทึก</p>
+                                    <p x-text="current.user_name"></p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="font-semibold">หมายเหตุ</p>
+                                <p class="border rounded p-3 bg-gray-50 dark:bg-gray-700"
+                                    x-text="current.remark || '-'"></p>
+                            </div>
+
+                            <div>
+                                <p class="font-semibold mb-2">รายการตรวจสอบ</p>
+                                <table class="w-full border text-sm">
+                                    <thead class="bg-gray-100 dark:bg-gray-700">
+                                        <tr>
+                                            <th class="border px-2 py-1">ลำดับ</th>
+                                            <th class="border px-2 py-1 text-left">รายการ</th>
+                                            <th class="border px-2 py-1">สถานะ</th>
+                                            <th class="border px-2 py-1 text-left">หมายเหตุ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template x-for="(row, i) in current.checklist" :key="i">
+                                            <tr>
+                                                <td class="border px-2 py-1 text-center" x-text="i + 1"></td>
+                                                <td class="border px-2 py-1" x-text="row.name"></td>
+                                                <td class="border px-2 py-1 text-center" x-text="statusText(row.status)"></td>
+                                                <td class="border px-2 py-1" x-text="row.remark || '-'"></td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </template>
+                    <template x-if="mode !== 'view'">
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6 items-end">
                             {{-- เลขที่ใบตรวจ --}}
                             <div class="md:col-span-2">
@@ -55,8 +107,6 @@
                                     type="text"
                                     name="inspection_no"
                                     x-model="current.inspection_no"
-                                    value=""
-                                    required
                                     disabled
                                     placeholder="INS-2025-00XX"
                                     class="w-full rounded-lg border border-gray-300 dark:border-gray-600
@@ -121,7 +171,7 @@
                                     type="text"
                                     name="remark"
                                     x-model="current.remark"
-                                    placeholder="กรอกหมายเหตุ"
+                                    :placeholder="mode !== 'view' ? 'กรอกหมายเหตุ' : '-'"
                                     class="w-full rounded-lg border border-gray-300 dark:border-gray-600
                                         bg-gray-50 dark:bg-gray-800 px-4 py-2 
                                         focus:ring-2 focus:ring-green-500 focus:outline-none">
@@ -152,17 +202,19 @@
                                                 </td>
                                                 <td class="px-4 py-1">
                                                     <select
+                                                        :value="current.checklist?.[{{ $item->id }}]?.status ?? 3"
                                                         name="results[{{ $item->id }}][status]"
                                                         class="w-full rounded-lg border border-gray-300 dark:border-gray-600
                                                             bg-gray-50 dark:bg-gray-800 px-4 py-2 
                                                             focus:ring-2 focus:ring-green-500 focus:outline-none">
                                                         <option value="1">ผ่าน</option>
                                                         <option value="2">ไม่ผ่าน</option>
-                                                        <option selected value="3">ไม่ได้ตรวจสอบ</option>
+                                                        <option value="3">ไม่ได้ตรวจสอบ</option>
                                                     </select>
                                                 </td>
                                                 <td class="px-4 py-1">
                                                     <input
+                                                        :value="current.checklist?.[{{ $item->id }}]?.remark ?? ''"
                                                         name="results[{{ $item->id }}][remark]"
                                                         class="w-full rounded-lg border border-gray-300 dark:border-gray-600
                                                             bg-gray-50 dark:bg-gray-800 px-4 py-2 
@@ -183,7 +235,7 @@
                                 </div>
                             </div>
                         </div>
-                    </fieldset>
+                    </template>
                     <!-- Footer -->
                     <div class="flex justify-end gap-3">
                         <button

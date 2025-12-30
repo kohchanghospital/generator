@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\InspectionNumber;
+use Carbon\Carbon;
+
 
 class Inspection extends Model
 {
@@ -19,21 +22,57 @@ class Inspection extends Model
     protected static function booted()
     {
         static::creating(function ($inspection) {
-            $year = now()->year;
 
-            $last = DB::table('inspections')
-                ->whereYear('created_at', $year)
-                ->orderByDesc('id')
-                ->value('inspection_no');
+            DB::transaction(function () use ($inspection) {
 
-            $running = 1;
+                $year = now()->year;
 
-            if ($last) {
-                $running = (int) substr($last, -4) + 1;
-            }
+                $lastNo = InspectionNumber::whereYear('created_at', $year)
+                    ->lockForUpdate()
+                    ->orderByDesc('id')
+                    ->value('inspection_no');
 
-            $inspection->inspection_no =
-                'INS-' . $year . '-' . str_pad($running, 4, '0', STR_PAD_LEFT);
+                $running = 1;
+                if ($lastNo) {
+                    $running = (int) substr($lastNo, -4) + 1;
+                }
+
+                $inspectionNo = 'INS-' . $year . '-' . str_pad($running, 4, '0', STR_PAD_LEFT);
+
+                // set ให้ inspections
+                $inspection->inspection_no = $inspectionNo;
+
+                // เก็บประวัติเลข (ไม่สนว่ามีใครลบ inspection)
+                InspectionNumber::create([
+                    'inspection_no' => $inspectionNo,
+                ]);
+            });
         });
+    }
+
+
+    public function checklistResults()
+    {
+        return $this->hasMany(InspectionChecklist::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function generator()
+    {
+        return $this->belongsTo(Generator::class);
+    }
+
+    public function getInspectionDateFormattedAttribute()
+    {
+        return Carbon::parse($this->inspection_date)->format('d/m/Y');
+    }
+
+    public function getInspectionTimeFormattedAttribute()
+    {
+        return Carbon::parse($this->inspection_time)->format('H:i');
     }
 }

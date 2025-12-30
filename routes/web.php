@@ -17,11 +17,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/inspection/preview-no', [InspectionController::class, 'previewNo'])->name('inspection.preview-no');
 Route::get('/inspection', [InspectionController::class, 'index'])->name('inspection.index');
 Route::post('/inspection', [InspectionController::class, 'store'])->name('inspection.store');
-Route::get('/inspection/create', [InspectionController::class, 'create'])->name('inspection.create');
+// Route::get('/inspection/create', [InspectionController::class, 'create'])->name('inspection.create');
 Route::get('/inspection/failed', [InspectionController::class, 'failed'])->name('inspection.failed');
-Route::get('/inspection/{id}', [InspectionController::class, 'show'])->name('inspection.show');
+Route::get('/inspection/{inspection}', [InspectionController::class, 'show'])->name('inspection.show');
+Route::get('/inspection/{inspection}/pdf', [InspectionController::class, 'pdf'])->name('inspection.pdf');
+Route::get('/inspection/{inspection}/view', [InspectionController::class, 'view'])->name('inspection.view');
 Route::delete('/inspection/{id}', [InspectionController::class, 'destroy'])->name('inspection.destroy');
 
 Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');

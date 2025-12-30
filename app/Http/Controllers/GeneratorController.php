@@ -48,7 +48,6 @@ class GeneratorController extends Controller
                     'toast_type' => 'create',
                     'toast_message' => 'เพิ่มรายการเครื่องปั่นไฟเรียบร้อยแล้ว'
                 ]);
-
         } catch (\Exception $e) {
 
             return redirect()
@@ -57,7 +56,6 @@ class GeneratorController extends Controller
                     'toast_type' => 'error',
                     'toast_message' => 'ไม่สามารถเพิ่มรายการเครื่องปั่นไฟได้'
                 ]);
-
         }
     }
 
@@ -89,7 +87,6 @@ class GeneratorController extends Controller
                     'toast_type' => 'update',
                     'toast_message' => 'บันทึกรายการเครื่องปั่นไฟเรียบร้อยแล้ว'
                 ]);
-
         } catch (\Exception $e) {
 
             return redirect()
@@ -98,7 +95,6 @@ class GeneratorController extends Controller
                     'toast_type' => 'error',
                     'toast_message' => 'ไม่สามารถบันทึกรายการเครื่องปั่นไฟได้'
                 ]);
-                
         }
     }
 
@@ -113,7 +109,6 @@ class GeneratorController extends Controller
                     'toast_type' => 'delete',
                     'toast_message' => 'ลบรายการเครื่องปั่นไฟเรียบร้อยแล้ว'
                 ]);
-
         } catch (\Exception $e) {
 
             return redirect()
@@ -138,5 +133,4 @@ class GeneratorController extends Controller
         $item = Generator::findOrFail($id);
         return view('generator.edit', compact('item'));
     }
-
 }

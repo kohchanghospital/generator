@@ -9,7 +9,6 @@
             mode: 'create', // create | edit
             current: {
                 id: null,
-                checklist_name: '',
                 status: 1
             },
             confirmDelete: false,
@@ -25,7 +24,7 @@
                             <button
                                 @click="
                                 mode = 'create';
-                                current = { id: null, checklist_name: '', status: 1 };
+                                current = { id: null, status: 1 };
                                 open = true;
                             "
                                 class="btn btn-success">

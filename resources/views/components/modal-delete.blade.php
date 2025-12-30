@@ -2,11 +2,11 @@
 <div
     x-show="confirmDelete"
     x-transition
-    class="fixed inset-0 z-50 flex items-center justify-center px-4"
+    class="fixed inset-0 z-50 flex items-center justify-center px-4 "
 >
     <!-- Background -->
     <div
-        class="fixed inset-0 bg-black bg-opacity-50"
+        class="fixed inset-0 bg-black/30 backdrop-blur-[4px]"
         @click="confirmDelete = false"
     ></div>
 
