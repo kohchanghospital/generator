@@ -4,15 +4,19 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InspectionController;
 use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\ChecklistController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 Route::get('/calendar', function () {
     return view('calendar');
 })->name('calendar');

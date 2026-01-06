@@ -288,4 +288,15 @@ class InspectionController extends Controller
 
         return response()->json($events);
     }
+
+    public function dashboard()
+    {
+        return view('dashboard', [
+            'todayCount' => Inspection::whereDate('inspection_date', today())->count(),
+            'monthCount' => Inspection::whereMonth('inspection_date', now()->month)->count(),
+            'passCount'  => Inspection::where('status', 'pass')->count(),
+            'failCount'  => Inspection::where('status', 'fail')->count(),
+            'latestInspections' => Inspection::latest()->limit(5)->get(),
+        ]);
+    }
 }
