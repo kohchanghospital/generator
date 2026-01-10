@@ -14,12 +14,14 @@ class GeneratorController extends Controller
     {
         $perPage = $request->get('per_page', 20); // ค่าเริ่มต้น 20
 
-        $lists = Generator::orderBy('id')
+        $lists = Generator::withCount('inspections')
+            ->orderBy('id')
             ->paginate($perPage)
             ->withQueryString(); // จำค่า per_page เวลาเปลี่ยนหน้า
 
         return view('generator.index', compact('lists', 'perPage'));
     }
+
 
     public function store(Request $request)
     {
@@ -30,7 +32,7 @@ class GeneratorController extends Controller
                 'asset_name' => 'required|string|max:255',
                 'brand' => 'required|string|max:255',
                 'detail' => 'nullable|string',
-                'status' => 'required',
+                'is_active' => 'required',
             ]);
 
             Generator::create([
@@ -39,7 +41,7 @@ class GeneratorController extends Controller
                 'asset_name' => $request->asset_name,
                 'brand' => $request->brand,
                 'detail' => $request->detail,
-                'status' => $request->status,
+                'is_active' => $request->is_active,
             ]);
 
             return redirect()
@@ -68,7 +70,7 @@ class GeneratorController extends Controller
                 'asset_name' => 'required|string|max:255',
                 'brand' => 'required|string|max:255',
                 'detail' => 'nullable|string',
-                'status' => 'required',
+                'is_active' => 'required',
             ]);
 
             $item = Generator::findOrFail($id);
@@ -78,7 +80,7 @@ class GeneratorController extends Controller
                 'asset_name' => $request->asset_name,
                 'brand' => $request->brand,
                 'detail' => $request->detail,
-                'status' => $request->status,
+                'is_active' => $request->is_active,
             ]);
 
             return redirect()
@@ -101,7 +103,20 @@ class GeneratorController extends Controller
     public function destroy($id)
     {
         try {
-            Generator::findOrFail($id)->delete();
+            $generator = Generator::withCount('inspections')
+                ->findOrFail($id);
+
+            // ❌ ถ้ามีถูกใช้งานในใบ inspection
+            if ($generator->inspections_count > 0) {
+                return redirect()
+                    ->route('generator.index')
+                    ->with([
+                        'toast_type' => 'error',
+                        'toast_message' => 'ไม่สามารถลบได้ เนื่องจากถูกใช้งานในใบตรวจ'
+                    ]);
+            }
+
+            $generator->delete();
 
             return redirect()
                 ->route('generator.index')
@@ -119,6 +134,7 @@ class GeneratorController extends Controller
                 ]);
         }
     }
+
 
     // ดูรายละเอียด
     public function show($id)

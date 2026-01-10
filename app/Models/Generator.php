@@ -12,11 +12,16 @@ class Generator extends Model
         'asset_name',
         'brand',
         'detail',
-        'status'
+        'is_active'
     ];
 
     public function scopeActive($query)
     {
-        return $query->where('status', 1);
+        return $query->where('is_active', 1);
+    }
+
+    public function inspections()
+    {
+        return $this->hasMany(Inspection::class);
     }
 }

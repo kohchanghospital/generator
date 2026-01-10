@@ -8,11 +8,16 @@ class Checklist extends Model
 {
     protected $fillable = [
         'checklist_name',
-        'status'
+        'is_active'
     ];
 
     public function scopeActive($query)
     {
-        return $query->where('status', 1);
+        return $query->where('is_active', 1);
+    }
+
+    public function inspectionChecklists()
+    {
+        return $this->hasMany(InspectionChecklist::class, 'checklist_id');
     }
 }

@@ -22,12 +22,10 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div class="flex sticky justify-between items-end">
-                            <button
-                                @click="
+                            <button @click="
                                     mode = 'create';
                                     current = { id: null, checklist_name: '', is_active: 1 };
-                                    open = true;"
-                                class="btn btn-success">
+                                    open = true;" class="btn btn-success">
                                 <b><i class="bi bi-plus-circle"></i></b> เพิ่มรายการ
                             </button>
                             <x-per-page />
@@ -65,8 +63,7 @@
                                         <td class="px-4 py-3 text-center">
                                             <div class="flex items-center justify-center gap-2">
                                                 <div class="relative group">
-                                                    <button
-                                                        @click="
+                                                    <button @click="
                                                             mode = 'edit';
                                                             current = {
                                                                 id: {{ $item->id }},
@@ -74,33 +71,43 @@
                                                                 is_active: {{ $item->is_active }}
                                                             };
                                                             open = true;
-                                                        "
-                                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                                        " class="inline-flex items-center justify-center w-8 h-8 rounded-full
                                                             bg-yellow-100 text-yellow-600 hover:bg-yellow-200 transition">
                                                         ✏️
                                                     </button>
-                                                    <span
-                                                        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
+                                                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
                                                         แก้ไข
                                                     </span>
                                                 </div>
                                                 <div class="relative group">
-                                                    <button @click=" deleteId = {{ $item->id }}; deleteName = '{{ $item->checklist_name }}'; confirmDelete = true; "
-                                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-500 text-white hover:bg-red-600 transition">
+                                                    @if ($item->inspection_checklists_count > 0)
+                                                    <button disabled class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                                                        bg-gray-300 text-gray-500 cursor-not-allowed">
                                                         <b>X</b>
                                                     </button>
-                                                    <span
-                                                        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
+                                                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
+                                                        ไม่สามารถลบได้ เนื่องจากถูกใช้งานในใบตรวจ
+                                                    </span>
+                                                    @else
+                                                    <button @click="
+                                                            deleteId = {{ $item->id }};
+                                                            deleteName = '{{ $item->checklist_name }}';
+                                                            confirmDelete = true;" class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                                            bg-red-500 text-white hover:bg-red-600 transition">
+                                                        <b>X</b>
+                                                    </button>
+                                                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
                                                         ลบ
                                                     </span>
+                                                    @endif
+
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="8"
-                                            class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+                                        <td colspan="8" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
                                             🚫 ไม่มีข้อมูลให้แสดง
                                         </td>
                                     </tr>

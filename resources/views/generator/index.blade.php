@@ -9,7 +9,7 @@
             mode: 'create', // create | edit
             current: {
                 id: null,
-                status: 1
+                is_active: 1
             },
             confirmDelete: false,
             baseUrl: '{{ url('generator') }}',
@@ -21,13 +21,11 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div class="flex sticky justify-between items-end">
-                            <button
-                                @click="
+                            <button @click="
                                 mode = 'create';
-                                current = { id: null, status: 1 };
+                                current = { id: null, is_active: 1 };
                                 open = true;
-                            "
-                                class="btn btn-success">
+                            " class="btn btn-success">
                                 <b><i class="bi bi-plus-circle"></i></b> เพิ่มข้อมูล
                             </button>
                             <x-per-page />
@@ -70,7 +68,7 @@
                                             </div>
                                         </td>
                                         <td class="px-4 py-3 text-center">
-                                            @if ($item->status == 1)
+                                            @if ($item->is_active == 1)
                                             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full
                                                     bg-green-100 text-green-700 text-sm font-medium">
                                                 <span class="w-2 h-2 rounded-full bg-green-500"></span>
@@ -87,8 +85,7 @@
                                         <td class="px-4 py-3 text-center">
                                             <div class="flex items-center justify-center gap-2">
                                                 <div class="relative group">
-                                                    <button
-                                                        @click="
+                                                    <button @click="
                                                             mode = 'view';
                                                             current = {
                                                                 id: {{ $item->id }},
@@ -97,22 +94,19 @@
                                                                 asset_name: '{{ $item->asset_name }}',
                                                                 brand: '{{ $item->brand }}',
                                                                 detail: '{{ $item->detail }}',
-                                                                status: {{ $item->status }}
+                                                                is_active: {{ $item->is_active }}
                                                             };
                                                             open = true;
-                                                        "
-                                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                                        " class="inline-flex items-center justify-center w-8 h-8 rounded-full
                                                             bg-blue-100 text-blue-600 hover:bg-blue-200 transition">
                                                         🔍
                                                     </button>
-                                                    <span
-                                                        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
+                                                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
                                                         ดูรายละเอียด
                                                     </span>
                                                 </div>
                                                 <div class="relative group">
-                                                    <button
-                                                        @click="
+                                                    <button @click="
                                                             mode = 'edit';
                                                             current = {
                                                                 id: {{ $item->id }},
@@ -121,36 +115,45 @@
                                                                 asset_name: '{{ $item->asset_name }}',
                                                                 brand: '{{ $item->brand }}',
                                                                 detail: '{{ $item->detail }}',
-                                                                status: {{ $item->status }}
+                                                                is_active: {{ $item->is_active }}
                                                             };
                                                             open = true;
-                                                        "
-                                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                                        " class="inline-flex items-center justify-center w-8 h-8 rounded-full
                                                             bg-yellow-100 text-yellow-600 hover:bg-yellow-200 transition">
                                                         ✏️
                                                     </button>
-                                                    <span
-                                                        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
+                                                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
                                                         แก้ไข
                                                     </span>
                                                 </div>
                                                 <div class="relative group">
-                                                    <button @click="deleteId = {{ $item->id }}; deleteName = '{{ $item->asset_name }}'; confirmDelete = true; "
-                                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-500 text-white hover:bg-red-600 transition">
+                                                    @if ($item->inspections_count > 0)
+                                                    <button disabled class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                                                        bg-gray-300 text-gray-500 cursor-not-allowed">
                                                         <b>X</b>
                                                     </button>
-                                                    <span
-                                                        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
+                                                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
+                                                        ไม่สามารถลบได้ เนื่องจากถูกใช้งานในใบตรวจสอบ
+                                                    </span>
+                                                    @else
+                                                    <button @click="
+                                                        deleteId = {{ $item->id }};
+                                                        deleteName = '{{ $item->asset_name }}';
+                                                        confirmDelete = true;" class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                                        bg-red-500 text-white hover:bg-red-600 transition">
+                                                        <b>X</b>
+                                                    </button>
+                                                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
                                                         ลบ
                                                     </span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="7"
-                                            class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+                                        <td colspan="7" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
                                             🚫 ไม่มีข้อมูลให้แสดง
                                         </td>
                                     </tr>
@@ -159,8 +162,7 @@
                                 @if($lists->count())
                                 <tfoot class="bg-gray-100 dark:bg-gray-700">
                                     <tr>
-                                        <td colspan="7"
-                                            class="px-3 py-2 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">
+                                        <td colspan="7" class="px-3 py-2 text-right text-sm font-semibold text-gray-700 dark:text-gray-200">
                                             <x-pagination :lists="$lists" />
                                         </td>
                                     </tr>

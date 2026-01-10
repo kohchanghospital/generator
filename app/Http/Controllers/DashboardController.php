@@ -16,8 +16,8 @@ class DashboardController extends Controller
                 ->whereYear('inspection_date', now()->year)
                 ->count(),
 
-            'passCount' => Inspection::whereHas('checklistResults', function ($q) {
-                $q->where('status', 1);
+            'passCount' => Inspection::whereDoesntHave('checklistResults', function ($q) {
+                $q->where('status', '!=', 1);
             })->count(),
 
             'failCount' => Inspection::whereHas('checklistResults', function ($q) {

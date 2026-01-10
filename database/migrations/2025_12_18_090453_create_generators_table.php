@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('asset_name')->comment('ชื่อครุภัณฑ์ / ชื่อเครื่อง');
             $table->string('brand')->nullable()->comment('ยี่ห้อ');
             $table->text('detail')->nullable()->comment('รายละเอียด');
-            $table->string('status')->nullable()->comment('สถานะ');
+            $table->string('is_active')->nullable()->comment('1=เปิดใช้งาน, 0=ปิดใช้งาน');
 
             $table->timestamps();
         });

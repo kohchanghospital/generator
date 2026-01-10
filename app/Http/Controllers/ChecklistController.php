@@ -14,12 +14,14 @@ class ChecklistController extends Controller
     {
         $perPage = $request->get('per_page', 20); // ค่าเริ่มต้น 20
 
-        $lists = Checklist::orderBy('id')
+        $lists = Checklist::withCount('inspectionChecklists')
+            ->orderBy('id')
             ->paginate($perPage)
             ->withQueryString(); // จำค่า per_page เวลาเปลี่ยนหน้า
 
         return view('checklist.index', compact('lists', 'perPage'));
     }
+
 
 
     // บันทึกข้อมูล
@@ -87,7 +89,19 @@ class ChecklistController extends Controller
     public function destroy($id)
     {
         try {
-            Checklist::findOrFail($id)->delete();
+            $checklist = Checklist::findOrFail($id);
+
+            // ❌ ถ้ามีใช้งานอยู่ ห้ามลบ
+            if ($checklist->inspectionChecklists()->exists()) {
+                return redirect()
+                    ->route('checklist.index')
+                    ->with([
+                        'toast_type' => 'error',
+                        'toast_message' => 'ไม่สามารถลบได้ เนื่องจากถูกใช้งานในใบตรวจ'
+                    ]);
+            }
+
+            $checklist->delete();
 
             return redirect()
                 ->route('checklist.index')

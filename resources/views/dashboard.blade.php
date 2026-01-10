@@ -41,14 +41,9 @@
                         ❌ ไม่ผ่าน
 
                         <span x-data="{ open:false }" class="relative">
-                            <i class="bi bi-info-circle text-gray-400 cursor-pointer"
-                                @mouseenter="open=true"
-                                @mouseleave="open=false"
-                                @click="open = !open"></i>
+                            <i class="bi bi-info-circle text-gray-400 cursor-pointer" @mouseenter="open=true" @mouseleave="open=false" @click="open = !open"></i>
 
-                            <span x-show="open"
-                                x-transition
-                                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2
+                            <span x-show="open" x-transition class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2
                                     bg-gray-800 text-white text-xs
                                     rounded px-3 py-1 w-56 text-center shadow-lg z-50">
                                 ไม่ผ่านและไม่ได้ตรวจ<br>
@@ -68,14 +63,9 @@
                         ⏺ ไม่ได้ตรวจสอบ
 
                         <span x-data="{ open:false }" class="relative">
-                            <i class="bi bi-info-circle text-gray-400 cursor-pointer"
-                                @mouseenter="open=true"
-                                @mouseleave="open=false"
-                                @click="open = !open"></i>
+                            <i class="bi bi-info-circle text-gray-400 cursor-pointer" @mouseenter="open=true" @mouseleave="open=false" @click="open = !open"></i>
 
-                            <span x-show="open"
-                                x-transition
-                                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2
+                            <span x-show="open" x-transition class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2
                                     bg-gray-800 text-white text-xs
                                     rounded px-3 py-1 w-56 text-center shadow-lg z-50">
                                 ไม่ผ่านและไม่ได้ตรวจ<br>
@@ -114,8 +104,7 @@
                     </div>
                     @if($latestInspection)
                     <div class="pb-5 pe-5 flex justify-end items-center ">
-                        <a href="{{ route('inspection.view', $latestInspection->id) }}"
-                            class="text-xs btn btn-primary">
+                        <a href="{{ route('inspection.view', $latestInspection->id) }}" class="text-xs btn btn-primary">
                             🔍 ดูรายละเอียดเต็ม
                         </a>
                     </div>
@@ -128,13 +117,11 @@
                         เมนูลัด
                     </h3>
 
-                    <a href="{{ route('inspection.index') }}"
-                        class="block w-full text-center px-4 py-2 rounded-lg btn-success">
+                    <a href="{{ route('inspection.index') }}" class="block w-full text-center px-4 py-2 rounded-lg btn-success">
                         <i class="bi bi-plus-circle"></i> บันทึกการตรวจใหม่
                     </a>
 
-                    <a href="{{ route('inspection.calendar') }}"
-                        class="block w-full text-center px-4 py-2 rounded-lg
+                    <a href="{{ route('inspection.calendar') }}" class="block w-full text-center px-4 py-2 rounded-lg
                             bg-slate-200 dark:bg-slate-700
                             text-gray-800 dark:text-gray-200">
                         📅 ดูปฏิทิน
