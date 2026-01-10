@@ -1,13 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-
-
         <div class="flex sticky justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                <a href="{{ route('inspection.index') }}"> <i class="bi bi-arrow-left-circle"></i></a>
+                <!-- <a href="{{ route('inspection.index') }}"> <i class="bi bi-arrow-left-circle"></i></a> -->
                 {{ __('รายละเอียดใบตรวจเช็คเครื่องปั่นไฟ') }}
             </h2>
-            <a href="{{ route('inspection.pdf', $inspection) }}"
+            <a href="{{ route('inspection.pdf', $inspection) }}" target="_blank"
                 class="absolute top-0 right-0 btn btn-primary text-gray-800 dark:text-gray-200 leading-tight">
                 <i class="bi bi-file-earmark-pdf"></i> Export PDF
             </a>

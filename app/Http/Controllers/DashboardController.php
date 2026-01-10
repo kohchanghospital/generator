@@ -8,6 +8,8 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
+        $latestInspection = Inspection::latest()->first();
+
         return view('dashboard', [
 
             'monthCount' => Inspection::whereMonth('inspection_date', now()->month)
@@ -29,6 +31,8 @@ class DashboardController extends Controller
             'allCount' => Inspection::count(),
 
             'latestInspections' => Inspection::latest()->limit(1)->get(),
+
+            'latestInspection' => $latestInspection,
         ]);
     }
 }

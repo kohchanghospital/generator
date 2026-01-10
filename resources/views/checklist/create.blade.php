@@ -33,7 +33,7 @@
                                     <label class="flex items-center gap-2 cursor-pointer">
                                         <input checked
                                             type="radio"
-                                            name="status"
+                                            name="is_active"
                                             value="1"
                                             class="text-green-600 focus:ring-green-500">
                                         <span>เปิดใช้งาน</span>
@@ -42,8 +42,8 @@
                                     <label class="flex items-center gap-2 cursor-pointer">
                                         <input
                                             type="radio"
-                                            name="status"
-                                            value="2"
+                                            name="is_active"
+                                            value="0"
                                             class="text-red-600 focus:ring-red-500">
                                         <span>ปิดใช้งาน</span>
                                     </label>

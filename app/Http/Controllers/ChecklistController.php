@@ -28,12 +28,12 @@ class ChecklistController extends Controller
         try {
             $request->validate([
                 'checklist_name' => 'required|string|max:255',
-                'status' => 'required'
+                'is_active' => 'required'
             ]);
 
             Checklist::create([
                 'checklist_name' => $request->checklist_name,
-                'status' => $request->status,
+                'is_active' => $request->is_active,
             ]);
 
             return redirect()
@@ -58,13 +58,13 @@ class ChecklistController extends Controller
         try {
             $request->validate([
                 'checklist_name' => 'required|string|max:255',
-                'status' => 'required'
+                'is_active' => 'required'
             ]);
 
             $item = Checklist::findOrFail($id);
             $item->update([
                 'checklist_name' => $request->checklist_name,
-                'status' => $request->status,
+                'is_active' => $request->is_active,
             ]);
 
             return redirect()

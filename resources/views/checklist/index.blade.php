@@ -10,7 +10,7 @@
             current: {
                 id: null,
                 checklist_name: '',
-                status: 1
+                is_active: 1
             },
             confirmDelete: false,
             baseUrl: '{{ url('checklist') }}',
@@ -25,7 +25,7 @@
                             <button
                                 @click="
                                     mode = 'create';
-                                    current = { id: null, checklist_name: '', status: 1 };
+                                    current = { id: null, checklist_name: '', is_active: 1 };
                                     open = true;"
                                 class="btn btn-success">
                                 <b><i class="bi bi-plus-circle"></i></b> เพิ่มรายการ
@@ -48,7 +48,7 @@
                                         <td class="px-4 py-3">{{ $lists->firstItem() + $loop->index }}</td>
                                         <td class="px-4 py-3">{{ $item->checklist_name }}</td>
                                         <td class="px-4 py-3 text-center">
-                                            @if ($item->status == 1)
+                                            @if ($item->is_active == 1)
                                             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full
                                                     bg-green-100 text-green-700 text-sm font-medium">
                                                 <span class="w-2 h-2 rounded-full bg-green-500"></span>
@@ -71,7 +71,7 @@
                                                             current = {
                                                                 id: {{ $item->id }},
                                                                 checklist_name: '{{ $item->checklist_name }}',
-                                                                status: {{ $item->status }}
+                                                                is_active: {{ $item->is_active }}
                                                             };
                                                             open = true;
                                                         "

@@ -66,26 +66,26 @@
                                 <input
                                     type="checkbox"
                                     class="sr-only"
-                                    :checked="current.status == 1"
-                                    @change="current.status = $event.target.checked ? 1 : 2"
+                                    :checked="current.is_active == 1"
+                                    @change="current.is_active = $event.target.checked ? 1 : 0"
                                     :disabled="mode === 'view'">
                                 <!-- Switch background -->
                                 <div
                                     class="w-11 h-6 rounded-full transition-colors"
-                                    :class="current.status == 1
+                                    :class="current.is_active == 1
                                             ? 'bg-green-600'
                                             : 'bg-gray-300 dark:bg-gray-600'"></div>
                                 <!-- Switch knob -->
                                 <div
                                     class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform"
-                                    :class="current.status == 1 ? 'translate-x-5' : ''"></div>
+                                    :class="current.is_active == 1 ? 'translate-x-5' : ''"></div>
                                 <!-- Label text -->
                                 <span class="ml-3 text-sm font-medium"
-                                    x-text="current.status == 1 ? 'เปิดใช้งาน' : 'ปิดใช้งาน'">
+                                    x-text="current.is_active == 1 ? 'เปิดใช้งาน' : 'ปิดใช้งาน'">
                                 </span>
                             </label>
                             <!-- hidden input เพื่อส่งค่าไป backend -->
-                            <input type="hidden" name="status" :value="current.status">
+                            <input type="hidden" name="is_active" :value="current.is_active">
                         </div>
                     </div>
 
