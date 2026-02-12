@@ -1,13 +1,15 @@
 <aside class="fixed inset-y-0 left-0 w-20 bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col items-center py-4 space-y-6">
-    
+
     <!-- Hamburger / Logo -->
-    <div class="text-teal-500 text-2xl font-bold">
-        ☰
+    <div class="shrink-0 flex items-center">
+        <a href="{{ route('dashboard') }}">
+            <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+        </a>
     </div>
 
     <!-- Menu -->
     <nav class="flex flex-col items-center space-y-5 text-sm text-gray-600 dark:text-gray-300">
-        
+
         <a href="{{ route('dashboard') }}" class="sidebar-item">
             <span class="sideber-icon">📊</span>
             <span>Dashboard</span>
@@ -27,7 +29,7 @@
             <span class="sideber-icon">🗓️</span>
             <span>ปฏิทินการตรวจเช็ค</span>
         </a>
-        
+
         <div class="w-full flex items-center gap-2 text-gray-400 dark:text-gray-500 text-xs">
             <div class="flex-1 h-px bg-gray-300 dark:bg-gray-600"></div>
             <span>⚙️การตั้งค่า</span>

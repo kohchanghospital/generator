@@ -74,7 +74,6 @@
                         </span>
                     </p>
 
-
                     <p class="text-3xl font-bold text-yellow-600">
                         {{ $notCheckedCount ?? 0 }}
                     </p>
@@ -112,20 +111,28 @@
                 </div>
 
                 {{-- QUICK ACTION --}}
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-5 space-y-4">
-                    <h3 class="font-semibold text-gray-800 dark:text-gray-200">
-                        เมนูลัด
-                    </h3>
+                <div class="flex flex-col gap-6">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-5 space-y-4">
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200">
+                            เมนูลัด
+                        </h3>
 
-                    <a href="{{ route('inspection.index') }}" class="block w-full text-center px-4 py-2 rounded-lg btn-success">
-                        <i class="bi bi-plus-circle"></i> บันทึกการตรวจใหม่
-                    </a>
+                        <a href="{{ route('inspection.index') }}" class="block w-full text-center px-4 py-2 rounded-lg btn-success">
+                            <i class="bi bi-plus-circle"></i> บันทึกการตรวจใหม่
+                        </a>
 
-                    <a href="{{ route('inspection.calendar') }}" class="block w-full text-center px-4 py-2 rounded-lg
+                        <a href="{{ route('inspection.calendar') }}" class="block w-full text-center px-4 py-2 rounded-lg
                             bg-slate-200 dark:bg-slate-700
                             text-gray-800 dark:text-gray-200">
-                        📅 ดูปฏิทิน
+                            📅 ดูปฏิทิน
+                        </a>
+                    </div>
+                    <a href="{{ route('dashboard.exportPdf') }}"
+                        target="_blank"
+                        class="btn btn-primary text-center text-gray-800 dark:text-gray-200 leading-tight">
+                        <i class="bi bi-file-earmark-arrow-down"></i> Export Report
                     </a>
+
                 </div>
             </div>
         </div>

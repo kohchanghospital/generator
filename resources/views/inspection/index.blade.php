@@ -4,13 +4,14 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('รายละเอียดตรวจเช็คเครื่องปั่นไฟ') }}
             </h2>
-            <a href="#" class="absolute top-0 right-0 btn btn-primary text-gray-800 dark:text-gray-200 leading-tight">
-                <i class="bi bi-file-earmark-arrow-down"></i> Generate Report
-            </a>
         </div>
     </x-slot>
     <div x-data="{
             open: false,
+            openReport: false,
+            typeReport: 'inspection',
+            reportMode: '10',
+            customLimit: '',
             mode: 'create', // create | edit
             current: {
                 id: null,
@@ -65,6 +66,13 @@
             deleteId: null,
             deleteName: '',
         }">
+        <div class="grid justify-items-end">
+            <button
+                @click="openReport = true"
+                class="btn btn-primary text-gray-800 dark:text-gray-200 leading-tight">
+                <i class="bi bi-file-earmark-arrow-down"></i> Export Report
+            </button>
+        </div>
         <div class="py-6">
             <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -164,7 +172,9 @@
                 </div>
             </div>
             @include('inspection.modal')
+            @include('inspection.modal-inspection-report')
         </div>
-        <x-toast-validation />
-        <x-toast />
+    </div>
+    <x-toast-validation />
+    <x-toast />
 </x-app-layout>

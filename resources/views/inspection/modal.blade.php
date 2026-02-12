@@ -3,6 +3,7 @@
     <div
         x-show="open"
         x-transition
+        x-cloak
         class="fixed inset-0 bg-black/30 backdrop-blur-[4px] z-40"
         @click="open = false">
     </div>
@@ -194,3 +195,8 @@
         </div>
     </div>
 </div>
+<style>
+    [x-cloak] {
+        display: none !important;
+    }
+</style>

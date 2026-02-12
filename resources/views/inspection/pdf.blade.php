@@ -61,7 +61,7 @@
     <h2 style="text-align:center;">รายงานตรวจเช็คเครื่องปั่นไฟ</h2>
 
     <p><b>เลขที่ใบตรวจ:</b> {{ $inspection->inspection_no }}</p>
-    <p><b>วันที่:</b> {{ \Carbon\Carbon::parse($inspection->inspection_date)->format('d/m/Y') }}</p>
+    <p><b>วันที่:</b> {{ \Carbon\Carbon::parse($inspection->inspection_date)->addYears(543)->format('d/m/Y') }}</p>
     <p><b>เวลา:</b> {{ \Carbon\Carbon::parse($inspection->inspection_time)->format('H:i')}} น.</p>
     <p><b>เครื่อง:</b> {{ $inspection->generator->machine_code }} | {{ $inspection->generator->asset_name }}</p>
     <p><b>ผู้ตรวจ:</b> {{ $inspection->user->name }}</p>

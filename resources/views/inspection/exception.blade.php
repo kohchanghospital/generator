@@ -4,14 +4,15 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('รายการตรวจเช็คเครื่องปั่นไฟที่ไม่ผ่าน / ไม่ได้ตรวจ') }}
             </h2>
-            <a href="#" class="absolute top-0 right-0 btn btn-primary text-gray-800 dark:text-gray-200 leading-tight">
-                <i class="bi bi-file-earmark-arrow-down"></i> Generate Report
-            </a>
         </div>
     </x-slot>
     <div x-data="{
         open: false,
-        mode: 'deit',
+        openReport: false,
+        typeReport: 'exception',
+        reportMode: '10',
+        customLimit: '',
+        mode: 'edit',
         current: {},
 
         async editInspection(id) {
@@ -45,6 +46,13 @@
         },
 
     }">
+        <div class="grid justify-items-end">
+            <button
+                @click="openReport = true"
+                class="btn btn-primary text-gray-800 dark:text-gray-200 leading-tight">
+                <i class="bi bi-file-earmark-arrow-down"></i> Export Report
+            </button>
+        </div>
         <div class="py-6">
             <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -133,6 +141,7 @@
             </div>
         </div>
         @include('inspection.modal')
+        @include('inspection.modal-inspection-report')
     </div>
     <x-toast-validation />
     <x-toast />

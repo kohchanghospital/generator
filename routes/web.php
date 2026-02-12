@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InspectionController;
+use App\Http\Controllers\InspectionReportController;
+use App\Http\Controllers\InspectionCalendarController;
 use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\DashboardController;
@@ -29,10 +31,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/inspection/calendar/events', [InspectionController::class, 'calendarEvents'])->name('inspection.calendar.events');
 });
 
+Route::get('/dashboard-pdf', [DashboardController::class, 'exportPdf'])->name('dashboard.exportPdf');
 Route::get('/inspection/preview-no', [InspectionController::class, 'previewNo'])->name('inspection.preview-no');
 Route::get('/inspection', [InspectionController::class, 'index'])->name('inspection.index');
 Route::post('/inspection', [InspectionController::class, 'store'])->name('inspection.store');
 Route::get('/inspection/exception', [InspectionController::class, 'exception'])->name('inspection.exception');
+// Route::get('/inspection/report', [InspectionReportController::class, 'report'])->name('inspection.report');// routes/web.php
+Route::get('/inspection/calendar/report', [InspectionCalendarController::class, 'pdf'])->name('inspection.calendar.pdf');
+Route::get('/inspection/report/inspection', [InspectionReportController::class, 'inspection'])->name('inspection.report.inspection');
+Route::get('/inspection/report/exception', [InspectionReportController::class, 'exception'])->name('inspection.report.exception');
+
 Route::put('/inspection/{inspection}', [InspectionController::class, 'update'])->name('inspection.update');
 Route::get('/inspection/{inspection}', [InspectionController::class, 'show'])->name('inspection.show');
 Route::get('/inspection/{inspection}/pdf', [InspectionController::class, 'pdf'])->name('inspection.pdf');
@@ -50,7 +58,7 @@ Route::delete('/checklist/{id}', [ChecklistController::class, 'destroy'])->name(
 Route::get('/generator', [GeneratorController::class, 'index'])->name('generator.index');
 Route::post('/generator', [GeneratorController::class, 'store'])->name('generator.store');
 Route::get('/generator/{id}', [GeneratorController::class, 'show'])->name('generator.show');
-Route::put('/generator/{id}', [GeneratorController::class, 'update'])->name('generator.update');
+Route::put('/generator/{id}', [GeneratorController::class, 'update'])->name('generator.update'); 
 Route::delete('/generator/{id}', [GeneratorController::class, 'destroy'])->name('generator.destroy');
 
 require __DIR__ . '/auth.php';
