@@ -7,7 +7,7 @@
         </div>
     </x-slot>
     <div x-data="{
-            open: false,
+            open: {{ request('open') === 'new' ? 'true' : 'false' }},
             openReport: false,
             typeReport: 'inspection',
             reportMode: '10',
@@ -65,7 +65,13 @@
             baseUrl: '{{ url('inspection') }}',
             deleteId: null,
             deleteName: '',
-        }">
+        }"
+        x-init="
+        if (open) {
+            mode = 'create';
+            previewInspectionNo();
+        }
+    ">
         <div class="grid justify-items-end">
             <button
                 @click="openReport = true"

@@ -81,26 +81,32 @@
                                                 </div>
                                                 <div class="relative group">
                                                     @if ($item->inspection_checklists_count > 0)
-                                                    <button disabled class="inline-flex items-center justify-center w-8 h-8 rounded-full
-                                                                        bg-gray-300 text-gray-500 cursor-not-allowed">
+                                                    <button
+                                                        type="button"
+                                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                                            bg-gray-300 text-gray-500 cursor-not-allowed pointer-events-none">
                                                         <b>X</b>
                                                     </button>
-                                                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
+                                                    <span class="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2
+                                                                whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs
+                                                                text-white opacity-0 group-hover:opacity-100 transition">
                                                         ไม่สามารถลบได้ เนื่องจากถูกใช้งานในใบตรวจ
                                                     </span>
                                                     @else
-                                                    <button @click="
-                                                            deleteId = {{ $item->id }};
-                                                            deleteName = '{{ $item->checklist_name }}';
-                                                            confirmDelete = true;" class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                                    <button
+                                                        @click="deleteId = {{ $item->id }};
+                                                                deleteName = '{{ $item->checklist_name }}';
+                                                                confirmDelete = true;"
+                                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full
                                                             bg-red-500 text-white hover:bg-red-600 transition">
                                                         <b>X</b>
                                                     </button>
-                                                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition">
+                                                    <span class="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2
+                                                                whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs
+                                                                text-white opacity-0 group-hover:opacity-100 transition">
                                                         ลบ
                                                     </span>
                                                     @endif
-
                                                 </div>
                                             </div>
                                         </td>

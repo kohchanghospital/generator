@@ -15,6 +15,7 @@
         <div
             x-show="open"
             x-transition
+            x-cloak
             class="fixed inset-0 z-50 flex items-center justify-center "
             @click.stop>
             <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-lg p-6 shadow-lg">
@@ -46,41 +47,57 @@
                                 <input type="radio" name="mode" value="custom">
                                 เลือกเดือน / ปี
                             </label>
-                        </div>
-                    </div>
 
-                    <!-- Custom picker -->
-                    <div id="monthPicker" style="display:none">
-                        <div class="mb-2 text-gray-800 dark:text-gray-200">
-                            <label>เดือน : </label>
-                            <select
-                                name="month"
-                                class="w-xs rounded-lg border
-                            bg-white dark:bg-gray-700
-                            text-gray-900 dark:text-gray-100
-                            border-gray-300 dark:border-gray-600">
-                                @foreach(range(1,12) as $m)
-                                <option value="{{ $m }}">
-                                    {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
-                                </option>
-                                @endforeach
-                            </select>
-                        </div>
+                            <div id="monthPicker" style="display:none">
+                                <div class="mb-2 text-gray-800 dark:text-gray-200">
+                                    <label>เดือน : </label>
+                                    <select
+                                        name="month"
+                                        class="w-xs rounded-lg border
+                                            bg-white dark:bg-gray-700
+                                            text-gray-900 dark:text-gray-100
+                                            border-gray-300 dark:border-gray-600">
+                                        @foreach(range(1,12) as $m)
+                                        <option value="{{ $m }}">
+                                            {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
-                        <div class="mb-4 text-gray-800 dark:text-gray-200">
-                            <label>ปี : </label>
-                            <select
-                                name="year"
-                                class="w-xsS rounded-lg border
-                            bg-white dark:bg-gray-700
-                            text-gray-900 dark:text-gray-100
-                            border-gray-300 dark:border-gray-600">
-                                @foreach(range(now()->year - 2, now()->year + 2) as $y)
-                                <option value="{{ $y }}" {{ $y == now()->year ? 'selected' : '' }}>
-                                    {{ $y + 543 }}
-                                </option>
-                                @endforeach
-                            </select>
+                                <div class="mb-4 text-gray-800 dark:text-gray-200">
+                                    <label>ปี : </label>
+                                    <select
+                                        name="year"
+                                        class="w-xsS rounded-lg border
+                                            bg-white dark:bg-gray-700
+                                            text-gray-900 dark:text-gray-100
+                                            border-gray-300 dark:border-gray-600">
+                                        @foreach(range(now()->year - 2, now()->year + 2) as $y)
+                                        <option value="{{ $y }}" {{ $y == now()->year ? 'selected' : '' }}>
+                                            {{ $y + 543 }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- <label class="flex items-center gap-2 disabled">
+                                <input type="radio" name="mode" value="range">
+                                เลือกช่วงเดือน
+                            </label>
+                            <div id="rangePicker" style="display:none">
+                                <div class="mb-2">
+                                    <label>จากเดือน :</label>
+                                    <input type="month" name="start_month"
+                                        class="w-full rounded-lg border">
+                                </div>
+                                <div class="mb-4">
+                                    <label>ถึงเดือน :</label>
+                                    <input type="month" name="end_month"
+                                        class="w-full rounded-lg border">
+                                </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -97,10 +114,10 @@
                             type="submit"
                             formaction="{{ route('inspection.calendar.pdf') }}"
                             formtarget="_blank"
+                            @click="open = false"
                             class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white">
                             Export PDF
                         </button>
-
                     </div>
                 </form>
             </div>

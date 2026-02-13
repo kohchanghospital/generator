@@ -51,8 +51,12 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('input[name="mode"]').forEach(radio => {
             radio.addEventListener('change', e => {
+
                 document.getElementById('monthPicker').style.display =
                     e.target.value === 'custom' ? 'block' : 'none';
+
+                document.getElementById('rangePicker').style.display =
+                    e.target.value === 'range' ? 'block' : 'none';
             });
         });
     });

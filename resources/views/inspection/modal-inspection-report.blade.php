@@ -15,10 +15,10 @@
         <div
             x-show="openReport"
             x-transition
+            x-cloak
             class="fixed inset-0 z-50 flex items-center justify-center "
             @click.stop>
             <div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 w-full max-w-md rounded-lg p-6 shadow-lg">
-                <!-- <div class="relative bg-gray-800 text-gray-100 w-full max-w-md rounded-xl"> -->
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
                         สร้างรายงาน
@@ -76,7 +76,7 @@
 
                     <div class=" flex justify-end gap-2 mt-6">
                         <button type="button"
-                            @click="openReport=false"
+                            @click="openReport = false"
                             class="px-4 py-2 rounded-lg 
                                 bg-gray-300 hover:bg-gray-400
                                 dark:bg-gray-600 dark:hover:bg-gray-500
@@ -84,13 +84,19 @@
                             ยกเลิก
                         </button>
 
-                        <button class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white">
+                        <button
+                            class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white"
+                            @click="openReport = false">
                             สร้างรายงาน
                         </button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
 </div>
+<style>
+    [x-cloak] {
+        display: none !important;
+    }
+</style>

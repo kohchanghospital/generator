@@ -23,9 +23,11 @@ class InspectionCalendarController extends Controller
         $end   = $start->copy()->endOfMonth();
         $calendarStart = $start->copy()->startOfWeek(Carbon::SUNDAY);
 
-        $inspections = Inspection::whereBetween('inspection_date', [$start, $end])
+        $inspections = Inspection::with(['generator', 'checklistResults'])
+            ->whereBetween('inspection_date', [$start, $end])
             ->get()
             ->groupBy(fn($i) => Carbon::parse($i->inspection_date)->day);
+
 
         $pdf = Pdf::loadView('inspection.report.calendar', compact(
             'start',

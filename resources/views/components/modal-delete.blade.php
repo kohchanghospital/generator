@@ -2,6 +2,7 @@
 <div
     x-show="confirmDelete"
     x-transition
+    x-cloak
     class="fixed inset-0 z-50 flex items-center justify-center px-4 "
 >
     <!-- Background -->
@@ -51,4 +52,8 @@
         </div>
     </div>
 </div>
-
+<style>
+    [x-cloak] {
+        display: none !important;
+    }
+</style>

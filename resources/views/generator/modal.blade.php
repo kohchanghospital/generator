@@ -1,10 +1,10 @@
 <div>
     <!-- Modal Background -->
-    <div x-show="open" x-transition class="fixed inset-0 bg-black/30 backdrop-blur-[4px] z-40" @click="open = false">
+    <div x-show="open" x-transition x-cloak class="fixed inset-0 bg-black/30 backdrop-blur-[4px] z-40" @click="open = false">
     </div>
 
     <!-- Modal -->
-    <div x-show="open" x-transition class="fixed inset-0 z-50 flex items-center justify-center px-4">
+    <div x-show="open" x-transition x-cloak class="fixed inset-0 z-50 flex items-center justify-center px-4">
 
         <div class="bg-white dark:bg-gray-800 w-full max-w-4xl rounded-lg shadow-lg">
 
@@ -118,3 +118,8 @@
         </div>
     </div>
 </div>
+<style>
+    [x-cloak] {
+        display: none !important;
+    }
+</style>

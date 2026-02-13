@@ -12,6 +12,7 @@
     <div
         x-show="open"
         x-transition
+        x-cloak
         class="fixed inset-0 z-50 flex items-center justify-center px-4">
         <div class="bg-white dark:bg-gray-800 w-full max-w-4xl rounded-lg shadow-lg">
             <!-- Header -->

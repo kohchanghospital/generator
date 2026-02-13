@@ -78,13 +78,19 @@
         }
 
         .event {
-            background: #198754;
             color: #fff;
-            margin-top: 2px;
-            padding: 2px 4px;
+            margin-top: 4px;
+            padding: 2px 2px;
             font-size: 12pt;
-            border-radius: 3px;
-            line-height: 1.2;
+            border-radius: 6px;
+        }
+
+        .event.green {
+            background: #22c55e;
+        }
+
+        .event.red {
+            background: #ef4444;
         }
     </style>
 </head>
@@ -120,10 +126,19 @@
                     <div class="date">{{ $day->day }}</div>
 
                     @foreach ($inspections[$day->day] ?? [] as $item)
-                    <div class="event">
-                        {{ $item->inspection_code }} | {{ $item->generator_code }}
+
+                    @php
+                    $hasProblem = $item->checklistResults
+                    ->whereIn('status', [2,3])
+                    ->isNotEmpty();
+                    @endphp
+
+                    <div class="event {{ $hasProblem ? 'red' : 'green' }}">
+                        {{ $item->inspection_no }} | {{ $item->generator->machine_code }}
                     </div>
+
                     @endforeach
+
                     @endif
                     </td>
                     @php $day->addDay(); @endphp

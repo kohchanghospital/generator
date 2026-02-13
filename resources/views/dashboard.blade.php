@@ -117,7 +117,8 @@
                             เมนูลัด
                         </h3>
 
-                        <a href="{{ route('inspection.index') }}" class="block w-full text-center px-4 py-2 rounded-lg btn-success">
+                        <a href="{{ route('inspection.index', ['open' => 'new']) }}"
+                            class="block w-full text-center px-4 py-2 rounded-lg btn-success">
                             <i class="bi bi-plus-circle"></i> บันทึกการตรวจใหม่
                         </a>
 
