@@ -37,21 +37,6 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
 
-        DB::table('checklists')->insert([
-            ['checklist_name' => 'น้ำมันเชื้อเพลิง (400ลิตร)', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'สภาพสายไฟ ชำรุด', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'ทำความสะอาดโรงไฟฟ้าควบคุม', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'เบรกเกอร์ ควบคุมไฟ', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'สภาพสายไฟ ชำรุด', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'น้ำมันเครื่อง', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'น้ำหม้อน้ำ', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'ทดสอบการเดินเครื่อง 10 นาที', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'ระบบสตาร์ทแบบแมนนวล', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'ความเร็วรอบ', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'แรงดันไฟฟ้า', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'สภาพแผงควบคุม', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['checklist_name' => 'น้ำกลั่นแบตเตอรี่', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-        ]);
     }
 
     /**
