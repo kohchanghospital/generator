@@ -2,7 +2,11 @@
     <x-slot name="header">
         <div class="flex sticky justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                <!-- <a href="{{ route('inspection.index') }}"> <i class="bi bi-arrow-left-circle"></i></a> -->
+                <a id="backBtn"
+                    onclick="history.back()"
+                    style="cursor:pointer;">
+                    <i class="bi bi-arrow-left-circle"></i>
+                </a>
                 {{ __('รายละเอียดใบตรวจเช็คเครื่องปั่นไฟ') }}
             </h2>
             <a href="{{ route('inspection.pdf', $inspection) }}" target="_blank"
@@ -56,4 +60,12 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backBtn = document.getElementById('backBtn');
+            if (window.history.length <= 1) {
+                backBtn.style.display = 'none';
+            }
+        });
+    </script>
 </x-app-layout>
