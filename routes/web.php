@@ -9,6 +9,17 @@ use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
+// use Illuminate\Support\Facades\Hash;
+// use App\Models\User;
+
+// Route::get('/fix-password', function () {
+//     $user = User::where('email', 'mail@gmail.com')->first();
+//     $user->password = Hash::make('12345678');
+//     $user->save();
+
+//     return 'Password updated';
+// });
+
 Route::get('/', function () {
     return view('welcome');
 });

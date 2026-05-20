@@ -14,11 +14,19 @@
         @method('patch')
 
         <div>
-            <x-input-label for="name" value="ชื่อผู้ใช้งาน" />
+            <x-input-label for="name" value="ชื่อ" />
             <x-text-input id="name" name="name" type="text"
                 class="mt-1 block w-full"
                 :value="old('name', $user->name)" required autofocus />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        </div>
+
+        <div>
+            <x-input-label for="username" value="ชื่อผู้ใช้งาน" />
+            <x-text-input id="username" name="username" type="text"
+                class="mt-1 block w-full"
+                :value="old('username', $user->username)" required autofocus />
+            <x-input-error class="mt-2" :messages="$errors->get('username')" />
         </div>
 
         <div>

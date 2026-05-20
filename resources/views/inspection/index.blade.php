@@ -17,6 +17,11 @@
                 id: null,
                 inspection_no: ''
             },
+            setNow() {
+                const now = new Date();
+                this.current.inspection_date = now.toISOString().split('T')[0];
+                this.current.inspection_time = now.toTimeString().slice(0,5);
+            },
             async previewInspectionNo() {
                 const res = await fetch('{{ route('inspection.preview-no') }}');
                 const data = await res.json();

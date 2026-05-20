@@ -69,17 +69,17 @@
 
                             <!-- Email -->
                             <div class="mb-10">
-                                <x-input-label for="email" :value="__('Email')" />
+                                <x-input-label for="login" :value="__('Username or Email')" />
                                 <x-text-input
-                                    id="email"
+                                    id="login"
                                     class="block mt-1 w-full"
-                                    type="email"
-                                    name="email"
-                                    :value="old('email')"
+                                    type="text"
+                                    name="login"
+                                    :value="old('login')"
                                     required
                                     autofocus
                                 />
-                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('login')" class="mt-2" />
                             </div>
 
                             <!-- Password -->
