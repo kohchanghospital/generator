@@ -43,11 +43,11 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
-        <div class="mt-4 text-center">
+        <!-- <div class="mt-4 text-center">
             <a href="{{ url('/auth/google') }}"
                 class="inline-flex items-center px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
                 Login with Google
             </a>
-        </div>
+        </div> -->
     </form>
 </x-guest-layout>
