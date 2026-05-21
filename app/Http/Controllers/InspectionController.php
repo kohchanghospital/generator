@@ -41,12 +41,13 @@ class InspectionController extends Controller
     // หน้าเฉพาะรายการ "ไม่ผ่าน"
     public function exception(Request $request)
     {
+        $perPage = $request->get('per_page', 20);
         $lists = Inspection::whereHas('checklistResults', function ($q) {
             $q->whereIn('status', [2, 3]);
         })
             ->with(['generator', 'user'])
             ->latest()
-            ->paginate(20);
+            ->paginate($perPage);
 
         $generators = Generator::active()->orderBy('machine_code')->get();
         $checklist  = Checklist::active()->orderBy('id')->get();

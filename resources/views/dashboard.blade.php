@@ -5,11 +5,11 @@
         </h2>
     </x-slot>
 
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="py-4 sm:py-6">
+        <div class="mx-auto max-w-7xl space-y-5 sm:space-y-6">
 
             {{-- SUMMARY CARDS --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
 
                 {{-- เดือนนี้ --}}
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-5">
@@ -84,15 +84,15 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
                 {{-- ล่าสุด --}}
-                <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow">
+                <div class="rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-gray-900 dark:ring-gray-800 lg:col-span-2">
                     <div class="pt-5 ps-5 dark:border-gray-500">
                         <h3 class="font-semibold text-gray-800 dark:text-gray-200">
                             การตรวจล่าสุด
                         </h3>
                     </div>
-                    <div class="p-5">
+                    <div class="p-4 sm:p-5">
                         @if($latestInspection)
-                        <div class="border rounded-lg p-4 bg-gray-50 dark:bg-gray-900">
+                        <div class="rounded-xl border border-slate-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-950 sm:p-4">
                             @include('inspection._detail', [
                             'inspection' => $latestInspection
                             ])
@@ -102,8 +102,8 @@
                         @endif
                     </div>
                     @if($latestInspection)
-                    <div class="pb-5 pe-5 flex justify-end items-center ">
-                        <a href="{{ route('inspection.view', $latestInspection->id) }}" class="text-xs btn btn-primary">
+                    <div class="flex items-center justify-stretch px-4 pb-5 sm:justify-end sm:px-5">
+                        <a href="{{ route('inspection.view', $latestInspection->id) }}" class="btn btn-primary w-full text-center text-xs sm:w-auto">
                             🔍 ดูรายละเอียดเต็ม
                         </a>
                     </div>
@@ -112,7 +112,7 @@
 
                 {{-- QUICK ACTION --}}
                 <div class="flex flex-col gap-6">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-5 space-y-4">
+                    <div class="space-y-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 dark:bg-gray-900 dark:ring-gray-800 sm:p-5">
                         <h3 class="font-semibold text-gray-800 dark:text-gray-200">
                             เมนูลัด
                         </h3>

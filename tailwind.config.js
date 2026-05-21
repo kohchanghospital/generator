@@ -20,8 +20,7 @@ export default {
         },
     },
     plugins: [
+        forms,
         require('tailwind-scrollbar'),
     ],
-
-    plugins: [forms],
 };

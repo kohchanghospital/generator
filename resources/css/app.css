@@ -5,16 +5,25 @@
         font-family: 'Noto Sans Thai', 'Figtree', system-ui, sans-serif;
         font-variant-numeric: tabular-nums;
     }
+
+    [x-cloak] {
+        display: none !important;
+    }
 }
 
 .sidebar-item {
-    @apply flex flex-col items-center gap-1 text-center
-           text-gray-600 dark:text-gray-300
-           hover:text-teal-500 transition;
+    @apply flex min-w-20 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-center
+           text-gray-600 transition hover:bg-slate-100 hover:text-teal-600
+           dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-teal-300
+           lg:w-16 lg:flex-none lg:px-1;
 }
 
 .sideber-icon {
-    @apply text-2xl;
+    @apply text-xl leading-none lg:text-2xl;
+}
+
+.sidebar-item span {
+    @apply block max-w-20 truncate text-[11px] leading-tight lg:max-w-16;
 }
 
 /* 🔵 Primary */

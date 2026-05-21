@@ -1,6 +1,6 @@
 <div class="space-y-4 text-sm text-gray-900 dark:text-gray-100">
 
-    <div class="flex justify-between">
+    <div class="flex flex-col gap-2 sm:flex-row sm:justify-between">
         <div>
             <b>เลขที่ใบตรวจ:</b> {{ $inspection->inspection_no }}
         </div>
@@ -21,7 +21,8 @@
 
     <div><b>หมายเหตุ:</b> {{ $inspection->remark ?? '-' }}</div>
 
-    <table class="w-full border mt-4 border-gray-200 dark:border-gray-700 text-xs">
+    <div class="mt-4 overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+    <table class="min-w-[520px] w-full text-xs">
         <thead class="bg-gray-100 dark:bg-gray-700">
             <tr>
                 <th class="px-3 py-2">#</th>
@@ -45,5 +46,6 @@
             @endforeach
         </tbody>
     </table>
+    </div>
 
 </div>

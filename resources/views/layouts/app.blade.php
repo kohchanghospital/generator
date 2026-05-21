@@ -21,7 +21,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="antialiased overflow-x-hidden">
+<body class="antialiased overflow-x-hidden bg-slate-100 dark:bg-gray-950">
 
     <div
         x-data="{
@@ -29,7 +29,7 @@
         mobileOpen: false
     }"
         x-init="$watch('sidebarOpen', value => localStorage.setItem('sidebarOpen', value))"
-        class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
+        class="min-h-screen flex flex-col bg-slate-100 text-slate-900 dark:bg-gray-950 dark:text-gray-100">
 
         {{-- Overlay (Mobile) --}}
         <div
@@ -45,28 +45,28 @@
             @endauth
 
             {{-- Content --}}
-            <div class="ml-20 flex-1 flex flex-col">
+            <div class="flex min-w-0 flex-1 flex-col lg:ml-20">
                 {{-- Top Navigation --}}
                 @include('layouts.navigation')
 
                 {{-- Page Heading --}}
                 @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-8xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header class="border-b border-slate-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                    <div class="mx-auto max-w-8xl px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
                         {{ $header }}
                     </div>
                 </header>
                 @endisset
 
                 {{-- Page Content --}}
-                <main class="flex-1 p-6">
+                <main class="flex-1 p-4 pb-24 sm:p-6 lg:pb-6">
                     {{ $slot }}
                 </main>
             </div>
         </div>
 
         {{-- Footer --}}
-        <footer class="py-4 text-center text-sm text-gray-400 bg-white dark:bg-gray-800 shadow">
+        <footer class="bg-white py-4 pb-24 text-center text-sm text-slate-500 shadow-sm dark:bg-gray-900 dark:text-gray-400 lg:pl-20 lg:pb-4">
             © {{ date('Y') }} Kohchang Hospital. All rights reserved.
         </footer>
 

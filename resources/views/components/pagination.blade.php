@@ -1,4 +1,4 @@
-<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+<div class="flex flex-col gap-3 text-left sm:flex-row sm:items-center sm:justify-between">
     {{-- ข้อความจำนวนรายการ --}}
     <div class="text-sm text-gray-600 dark:text-gray-400">
         แสดง
@@ -11,7 +11,7 @@
     </div>
     {{-- ปุ่ม pagination --}}
     @if ($lists->hasPages())
-    <div>
+    <div class="overflow-x-auto">
         {{ $lists->links() }}
     </div>
     @endif

@@ -13,23 +13,23 @@
         x-show="open"
         x-transition
         x-cloak
-        class="fixed inset-0 z-50 flex items-center justify-center px-4">
+        class="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto p-3 sm:items-center sm:p-6">
 
-        <div class="bg-white dark:bg-gray-800 w-full max-w-4xl rounded-lg shadow-lg">
+        <div class="flex max-h-[calc(100vh-1.5rem)] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-white shadow-xl dark:bg-gray-800 sm:max-h-[calc(100vh-3rem)]">
 
             <!-- Header -->
-            <div class="flex justify-between items-center px-6 py-4 border-b dark:border-gray-700">
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+            <div class="flex items-start justify-between gap-4 border-b px-4 py-4 dark:border-gray-700 sm:px-6">
+                <h2 class="text-base font-semibold text-gray-800 dark:text-gray-200 sm:text-lg">
                     <span x-show="mode === 'create'">บันทึกข้อมูลการตรวจเช็คใหม่</span>
                     <span x-show="mode === 'edit'">แก้ไขรายการตรวจเช็ค</span>
                 </h2>
-                <button @click="open = false" class="text-gray-500 hover:text-red-500 text-xl">
+                <button type="button" @click="open = false" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-500 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950/40">
                     ✕
                 </button>
             </div>
 
             <!-- Body -->
-            <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="overflow-y-auto p-4 text-gray-900 dark:text-gray-100 sm:p-6">
 
                 <form
                     method="POST"
@@ -41,7 +41,7 @@
                         @method('PUT')
                     </template>
 
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6 items-end">
+                    <div class="mb-6 grid grid-cols-1 items-end gap-4 md:grid-cols-4 md:gap-6">
 
                         {{-- รายการตรวจเช็ค --}}
                         <div class="md:col-span-3">
@@ -92,18 +92,17 @@
                     </div>
 
                     <!-- Footer -->
-                    <div class="flex justify-end gap-3">
+                    <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
                         <button
                             type="button"
                             @click="open = false"
-                            class="px-5 py-2 rounded-lg border border-gray-300 dark:border-gray-600">
+                            class="w-full rounded-lg border border-gray-300 px-5 py-2 dark:border-gray-600 sm:w-auto">
                             ยกเลิก
                         </button>
 
                         <button
                             type="submit"
-                            class="px-6 py-2 bg-green-600 hover:bg-green-700
-                                text-white font-semibold rounded-lg">
+                            class="w-full rounded-lg bg-green-600 px-6 py-2 font-semibold text-white hover:bg-green-700 sm:w-auto">
                             <span x-show="mode === 'create'">บันทึกข้อมูล</span>
                             <span x-show="mode === 'edit'">อัปเดตข้อมูล</span>
                         </button>

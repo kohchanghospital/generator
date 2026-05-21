@@ -1,13 +1,13 @@
-<div class="flex justify-between items-center">
-    <form method="GET">
-        <label class="text-sm text-gray-600 dark:text-gray-300 mr-2">
+<div class="flex w-full items-center justify-start sm:w-auto sm:justify-between">
+    <form method="GET" class="flex w-full items-center gap-2 sm:w-auto">
+        <label class="shrink-0 text-sm text-gray-600 dark:text-gray-300">
             แสดงต่อหน้า
         </label>
-        <div class="relative inline-block">
+        <div class="relative inline-block flex-1 sm:flex-none">
             <select
                 name="per_page"
                 onchange="this.form.submit()"
-                class="appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm px-3 py-1 pr-6">
+                class="w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 pr-8 text-sm dark:border-gray-600 dark:bg-gray-800 sm:w-auto">
                 @foreach ([10,20,50,100] as $size)
                 <option value="{{ $size }}"
                     {{ request('per_page', 20) == $size ? 'selected' : '' }}>

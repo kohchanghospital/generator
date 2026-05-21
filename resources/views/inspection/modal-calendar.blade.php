@@ -16,15 +16,15 @@
             x-show="open"
             x-transition
             x-cloak
-            class="fixed inset-0 z-50 flex items-center justify-center "
+            class="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto p-3 sm:items-center sm:p-6"
             @click.stop>
-            <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-lg p-6 shadow-lg">
+            <div class="w-full max-w-md rounded-2xl bg-white p-4 shadow-xl dark:bg-gray-800 sm:p-6">
                 <!-- Header -->
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
                         Export Report
                     </h2>
-                    <button @click="open = false" class="text-xl text-gray-500 hover:text-red-500">
+                    <button type="button" @click="open = false" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-500 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950/40">
                         ✕
                     </button>
                 </div>
@@ -53,7 +53,7 @@
                                     <label>เดือน : </label>
                                     <select
                                         name="month"
-                                        class="w-xs rounded-lg border
+                                            class="w-full rounded-lg border
                                             bg-white dark:bg-gray-700
                                             text-gray-900 dark:text-gray-100
                                             border-gray-300 dark:border-gray-600">
@@ -69,7 +69,7 @@
                                     <label>ปี : </label>
                                     <select
                                         name="year"
-                                        class="w-xsS rounded-lg border
+                                        class="w-full rounded-lg border
                                             bg-white dark:bg-gray-700
                                             text-gray-900 dark:text-gray-100
                                             border-gray-300 dark:border-gray-600">
@@ -102,12 +102,11 @@
                     </div>
 
                     <!-- Footer -->
-                    <div class="flex justify-end gap-2">
+                    <div class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
                         <button
                             type="button"
                             @click="open = false"
-                            class="px-4 py-2 rounded-lg bg-gray-300 hover:bg-gray-400
-                        dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-900 dark:text-white">
+                            class="w-full rounded-lg bg-gray-300 px-4 py-2 text-gray-900 hover:bg-gray-400 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500 sm:w-auto">
                             ยกเลิก
                         </button>
                         <button
@@ -115,7 +114,7 @@
                             formaction="{{ route('inspection.calendar.pdf') }}"
                             formtarget="_blank"
                             @click="open = false"
-                            class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white">
+                            class="w-full rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 sm:w-auto">
                             Export PDF
                         </button>
                     </div>

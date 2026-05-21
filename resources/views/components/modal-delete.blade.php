@@ -3,7 +3,7 @@
     x-show="confirmDelete"
     x-transition
     x-cloak
-    class="fixed inset-0 z-50 flex items-center justify-center px-4 "
+    class="fixed inset-0 z-50 flex items-end justify-center p-3 sm:items-center sm:p-6"
 >
     <!-- Background -->
     <div
@@ -12,7 +12,7 @@
     ></div>
 
     <!-- Modal Box -->
-    <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md z-10">
+    <div class="relative z-10 w-full max-w-md rounded-2xl bg-white shadow-xl dark:bg-gray-800">
         <!-- Header -->
         <div class="px-6 py-4 border-b dark:border-gray-700">
             <h2 class="text-lg font-semibold text-red-600">
@@ -30,14 +30,15 @@
         </div>
 
         <!-- Footer -->
-        <div class="px-6 py-4 flex justify-end gap-3">
+        <div class="flex flex-col-reverse gap-3 px-4 py-4 sm:flex-row sm:justify-end sm:px-6">
             <button
                 @click="confirmDelete = false"
-                class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600">
+                class="w-full rounded-lg border border-gray-300 px-4 py-2 dark:border-gray-600 sm:w-auto">
                 ยกเลิก
             </button>
 
             <form
+                class="sm:w-auto"
                 method="POST"
                 :action="baseUrl + '/' + deleteId"
             >
@@ -45,7 +46,7 @@
                 @method('DELETE')
                 <button
                     type="submit"
-                    class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700">
+                    class="w-full rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700 sm:w-auto">
                     ลบข้อมูล
                 </button>
             </form>

@@ -77,31 +77,31 @@
             previewInspectionNo();
         }
     ">
-        <div class="grid justify-items-end">
+        <div class="grid justify-items-stretch sm:justify-items-end">
             <button
                 @click="openReport = true"
-                class="btn btn-primary text-gray-800 dark:text-gray-200 leading-tight">
+                class="btn btn-primary w-full text-center text-gray-800 dark:text-gray-200 leading-tight sm:w-auto">
                 <i class="bi bi-file-earmark-arrow-down"></i> Export Report
             </button>
         </div>
-        <div class="py-6">
-            <div class="max-w-full mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <div class="flex sticky justify-between items-end">
+        <div class="py-4 sm:py-6">
+            <div class="mx-auto max-w-full">
+                <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-gray-900 dark:ring-gray-800">
+                    <div class="p-4 text-gray-900 dark:text-gray-100 sm:p-6">
+                        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                             <button
                                 @click="
                                     mode = 'create';
                                     current = { id: null, inspection_no: '' };
                                     previewInspectionNo();
                                     open = true;"
-                                class="btn btn-success">
+                                class="btn btn-success w-full sm:w-auto">
                                 <b><i class="bi bi-plus-circle"></i></b> เพิ่มข้อมูล
                             </button>
                             <x-per-page />
                         </div>
-                        <div class="overflow-x-auto pt-6">
-                            <table class="min-w-full border table-auto border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                        <div class="mt-5 overflow-x-auto rounded-xl border border-slate-200 dark:border-gray-700">
+                            <table class="w-full min-w-[760px] table-auto overflow-hidden text-sm">
                                 <thead class="bg-gray-100 dark:bg-gray-700">
                                     <tr>
                                         <th class="px-4 py-3 text-left text-sm font-semibold">ลำดับ</th>
