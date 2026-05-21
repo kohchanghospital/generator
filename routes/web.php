@@ -38,13 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/inspection', [InspectionController::class, 'index'])->name('inspection.index');
     Route::get('/inspection/calendar', [InspectionController::class, 'calendar'])->name('inspection.calendar');
     Route::get('/inspection/calendar/events', [InspectionController::class, 'calendarEvents'])->name('inspection.calendar.events');
 });
 
 Route::get('/dashboard-pdf', [DashboardController::class, 'exportPdf'])->name('dashboard.exportPdf');
 Route::get('/inspection/preview-no', [InspectionController::class, 'previewNo'])->name('inspection.preview-no');
-Route::get('/inspection', [InspectionController::class, 'index'])->name('inspection.index');
+// Route::get('/inspection', [InspectionController::class, 'index'])->name('inspection.index');
 Route::post('/inspection', [InspectionController::class, 'store'])->name('inspection.store');
 Route::get('/inspection/exception', [InspectionController::class, 'exception'])->name('inspection.exception');
 // Route::get('/inspection/report', [InspectionReportController::class, 'report'])->name('inspection.report');// routes/web.php
