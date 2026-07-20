@@ -21,9 +21,9 @@
     <div class="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-5 sm:px-6 lg:px-8">
         <header class="flex items-center justify-between gap-4">
             <a href="{{ url('/') }}" class="flex min-w-0 items-center gap-3">
-                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-gray-900 dark:ring-gray-800">
+                <!-- <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-gray-900 dark:ring-gray-800">
                     <img src="{{ asset('assets/image/generator3d.webp') }}" alt="Generator" class="h-9 w-auto">
-                </span>
+                </span> -->
                 <span class="min-w-0">
                     <span class="block truncate text-lg font-semibold text-slate-950 dark:text-white">Generator</span>
                     <span class="block truncate text-xs text-slate-500 dark:text-gray-400">Kohchang Hospital</span>
@@ -37,13 +37,13 @@
                     Dashboard
                 </a>
                 @else
-                <a href="{{ route('login') }}" class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white hover:text-teal-700 hover:shadow-sm dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-teal-300">
+                <a href="{{ route('login') }}" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm hover:border-teal-200 hover:text-teal-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-teal-900 dark:hover:text-teal-300 sm:inline-flex">
                     Log in
                 </a>
                 @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="hidden rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm hover:border-teal-200 hover:text-teal-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-teal-900 dark:hover:text-teal-300 sm:inline-flex">
+                <!-- <a href="{{ route('register') }}" class="hidden rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm hover:border-teal-200 hover:text-teal-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-teal-900 dark:hover:text-teal-300 sm:inline-flex">
                     Register
-                </a>
+                </a> -->
                 @endif
                 @endauth
             </nav>
@@ -62,7 +62,7 @@
                     </p>
                 </div>
 
-                <div class="mt-8 grid gap-3 sm:grid-cols-3">
+                <!-- <div class="mt-8 grid gap-3 sm:grid-cols-3">
                     <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900">
                         <i class="bi bi-clipboard2-check text-2xl text-teal-600 dark:text-teal-400"></i>
                         <p class="mt-3 text-sm font-semibold">Inspections</p>
@@ -78,10 +78,13 @@
                         <p class="mt-3 text-sm font-semibold">Reports</p>
                         <p class="mt-1 text-sm text-slate-500 dark:text-gray-400">Export clean PDFs.</p>
                     </div>
-                </div>
+                </div> -->
             </section>
 
-            <section class="order-1 rounded-3xl border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/60 dark:border-gray-800 dark:bg-gray-900 dark:shadow-black/20 sm:p-8 lg:order-2">
+            <section class="order-1 sm:p-8 lg:order-2">
+                    <img src="{{ asset('assets/image/generator3d.webp') }}" alt="Generator" class="h-100 w-auto">   
+        </section>
+            <!-- <section class="order-1 rounded-3xl border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/60 dark:border-gray-800 dark:bg-gray-900 dark:shadow-black/20 sm:p-8 lg:order-2">
                 <div class="mb-6 flex items-center gap-4">
                     <img src="{{ asset('assets/image/generator3d.webp') }}" alt="Generator" class="h-16 w-auto">
                     <div>
@@ -122,7 +125,7 @@
                         {{ __('Log in') }}
                     </x-primary-button>
                 </form>
-            </section>
+            </section> -->
         </main>
     </div>
 </body>
