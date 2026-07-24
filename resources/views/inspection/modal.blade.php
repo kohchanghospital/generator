@@ -1,33 +1,24 @@
-<div>
-    <!-- Modal Background -->
-    <div
-        x-show="open"
-        x-transition
-        x-cloak
-        class="fixed inset-0 bg-black/30 backdrop-blur-[4px] z-40"
-        @click="open = false">
-    </div>
-
-    <!-- Modal -->
-    <div
-        x-show="open"
-        x-transition
-        x-cloak
-        class="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto p-3 sm:items-center sm:p-6">
-        <div class="flex max-h-[calc(100vh-1.5rem)] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-xl dark:bg-gray-800 sm:max-h-[calc(100vh-3rem)]">
-            <!-- Header -->
-            <div class="flex items-start justify-between gap-4 border-b px-4 py-4 dark:border-gray-700 sm:px-6">
-                <h2 class="text-base font-semibold text-gray-800 dark:text-gray-200 sm:text-lg">
-                    <span x-show="mode === 'view'">ข้อมูลการตรวจเช็คเครื่องปั่นไฟ</span>
-                    <span x-show="mode === 'create'">บันทึกข้อมูลการตรวจเช็คเครื่องปั่นไฟ</span>
-                    <span x-show="mode === 'edit'">แก้ไขข้อมูลการตรวจเช็คเครื่องปั่นไฟ</span>
-                </h2>
-                <button type="button" @click="open = false" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-500 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950/40">
-                    ✕
-                </button>
-            </div>
-            <!-- Body -->
-            <div class="overflow-y-auto p-4 text-gray-900 dark:text-gray-100 sm:p-6">
+<div
+    x-show="open"
+    x-transition
+    x-cloak
+    class="fixed inset-0 z-50 flex items-end sm:items-center justify-center overflow-y-auto p-3 sm:p-6"
+    style="padding-top: max(1rem, env(safe-area-inset-top)); padding-bottom: max(1rem, env(safe-area-inset-bottom));">
+    
+    <div class="flex max-h-[calc(100dvh-2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-xl dark:bg-gray-800">
+        <!-- Header -->
+        <div class="flex items-start justify-between gap-4 border-b px-4 py-4 dark:border-gray-700 sm:px-6 shrink-0">
+            <h2 class="text-base font-semibold text-gray-800 dark:text-gray-200 sm:text-lg">
+                <span x-show="mode === 'view'">ข้อมูลการตรวจเช็คเครื่องปั่นไฟ</span>
+                <span x-show="mode === 'create'">บันทึกข้อมูลการตรวจเช็คเครื่องปั่นไฟ</span>
+                <span x-show="mode === 'edit'">แก้ไขข้อมูลการตรวจเช็คเครื่องปั่นไฟ</span>
+            </h2>
+            <button type="button" @click="open = false" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-500 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950/40">
+                ✕
+            </button>
+        </div>
+        <!-- Body -->
+        <div class="overflow-y-auto p-4 text-gray-900 dark:text-gray-100 sm:p-6 flex-1">
                 <form
                     method="POST"
                     :action="mode === 'create'

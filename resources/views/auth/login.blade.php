@@ -2,7 +2,7 @@
     <div class="mb-6">
         <p class="text-sm font-medium text-teal-600 dark:text-teal-400">{{ __('Welcome back') }}</p>
         <h2 class="mt-2 text-2xl font-semibold text-slate-950 dark:text-white">{{ __('Log in to your account') }}</h2>
-        <p class="mt-2 text-sm text-slate-500 dark:text-gray-400">{{ __('Use your username or email to continue.') }}</p>
+        <p class="mt-2 text-sm text-slate-500 dark:text-gray-400">{{ __('Enter your staff credentials to access the system.') }}</p>
     </div>
 
     <!-- Session Status -->

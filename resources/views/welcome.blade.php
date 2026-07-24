@@ -53,12 +53,12 @@
         <main class="grid flex-1 items-center gap-8 py-8 lg:grid-cols-[1fr_440px] lg:gap-12">
             <section class="order-2 lg:order-1">
                 <div class="max-w-2xl">
-                    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">Generator Inspection System</p>
+                    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">Digital Inspection Tracking for Koh Chang Hospital.</p>
                     <h1 class="mt-4 text-3xl font-semibold leading-tight text-slate-950 dark:text-white sm:text-5xl">
-                        Track generator inspections clearly from any device.
+                        Transforming paper-based generator logs into a secure digital workspace.
                     </h1>
                     <p class="mt-5 text-base leading-7 text-slate-600 dark:text-gray-300">
-                        Review inspection records, schedules, generator assets, and checklist settings in a clean workspace built for desktop and mobile use.
+                        Easily review, record, and track generator checklists from any device, replacing traditional paper logs with a seamless digital solution.
                     </p>
                 </div>
 

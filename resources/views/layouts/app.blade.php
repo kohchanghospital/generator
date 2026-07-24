@@ -52,9 +52,9 @@
                 {{-- Page Heading --}}
                 @isset($header)
                 <header class="border-b border-slate-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
-                    <div class="mx-auto max-w-8xl px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
+                    <!-- <div class="mx-auto max-w-8xl px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
                         {{ $header }}
-                    </div>
+                    </div> -->
                 </header>
                 @endisset
 

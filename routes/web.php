@@ -41,36 +41,33 @@ Route::middleware('auth')->group(function () {
     Route::get('/inspection', [InspectionController::class, 'index'])->name('inspection.index');
     Route::get('/inspection/calendar', [InspectionController::class, 'calendar'])->name('inspection.calendar');
     Route::get('/inspection/calendar/events', [InspectionController::class, 'calendarEvents'])->name('inspection.calendar.events');
+
+    Route::get('/dashboard-pdf', [DashboardController::class, 'exportPdf'])->name('dashboard.exportPdf');
+    Route::get('/inspection/preview-no', [InspectionController::class, 'previewNo'])->name('inspection.preview-no');
+    // Route::get('/inspection', [InspectionController::class, 'index'])->name('inspection.index');
+    Route::post('/inspection', [InspectionController::class, 'store'])->name('inspection.store');
+    Route::get('/inspection/exception', [InspectionController::class, 'exception'])->name('inspection.exception');
+    // Route::get('/inspection/report', [InspectionReportController::class, 'report'])->name('inspection.report');// routes/web.php
+    Route::get('/inspection/calendar/report', [InspectionCalendarController::class, 'pdf'])->name('inspection.calendar.pdf');
+    Route::get('/inspection/report/inspection', [InspectionReportController::class, 'inspection'])->name('inspection.report.inspection');
+    Route::get('/inspection/report/exception', [InspectionReportController::class, 'exception'])->name('inspection.report.exception');
+
+    Route::put('/inspection/{inspection}', [InspectionController::class, 'update'])->name('inspection.update');
+    Route::get('/inspection/{inspection}', [InspectionController::class, 'show'])->name('inspection.show');
+    Route::get('/inspection/{inspection}/pdf', [InspectionController::class, 'pdf'])->name('inspection.pdf');
+    Route::get('/inspection/{inspection}/view', [InspectionController::class, 'view'])->name('inspection.view');
+    Route::delete('/inspection/{id}', [InspectionController::class, 'destroy'])->name('inspection.destroy');
+
+    Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
+    Route::post('/checklist', [ChecklistController::class, 'store'])->name('checklist.store');
+    Route::put('/checklist/{id}', [ChecklistController::class, 'update'])->name('checklist.update');
+    Route::delete('/checklist/{id}', [ChecklistController::class, 'destroy'])->name('checklist.destroy');
+
+    Route::get('/generator', [GeneratorController::class, 'index'])->name('generator.index');
+    Route::post('/generator', [GeneratorController::class, 'store'])->name('generator.store');
+    Route::get('/generator/{id}', [GeneratorController::class, 'show'])->name('generator.show');
+    Route::put('/generator/{id}', [GeneratorController::class, 'update'])->name('generator.update');
+    Route::delete('/generator/{id}', [GeneratorController::class, 'destroy'])->name('generator.destroy');
 });
-
-Route::get('/dashboard-pdf', [DashboardController::class, 'exportPdf'])->name('dashboard.exportPdf');
-Route::get('/inspection/preview-no', [InspectionController::class, 'previewNo'])->name('inspection.preview-no');
-// Route::get('/inspection', [InspectionController::class, 'index'])->name('inspection.index');
-Route::post('/inspection', [InspectionController::class, 'store'])->name('inspection.store');
-Route::get('/inspection/exception', [InspectionController::class, 'exception'])->name('inspection.exception');
-// Route::get('/inspection/report', [InspectionReportController::class, 'report'])->name('inspection.report');// routes/web.php
-Route::get('/inspection/calendar/report', [InspectionCalendarController::class, 'pdf'])->name('inspection.calendar.pdf');
-Route::get('/inspection/report/inspection', [InspectionReportController::class, 'inspection'])->name('inspection.report.inspection');
-Route::get('/inspection/report/exception', [InspectionReportController::class, 'exception'])->name('inspection.report.exception');
-
-Route::put('/inspection/{inspection}', [InspectionController::class, 'update'])->name('inspection.update');
-Route::get('/inspection/{inspection}', [InspectionController::class, 'show'])->name('inspection.show');
-Route::get('/inspection/{inspection}/pdf', [InspectionController::class, 'pdf'])->name('inspection.pdf');
-Route::get('/inspection/{inspection}/view', [InspectionController::class, 'view'])->name('inspection.view');
-Route::delete('/inspection/{id}', [InspectionController::class, 'destroy'])->name('inspection.destroy');
-
-
-
-
-Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
-Route::post('/checklist', [ChecklistController::class, 'store'])->name('checklist.store');
-Route::put('/checklist/{id}', [ChecklistController::class, 'update'])->name('checklist.update');
-Route::delete('/checklist/{id}', [ChecklistController::class, 'destroy'])->name('checklist.destroy');
-
-Route::get('/generator', [GeneratorController::class, 'index'])->name('generator.index');
-Route::post('/generator', [GeneratorController::class, 'store'])->name('generator.store');
-Route::get('/generator/{id}', [GeneratorController::class, 'show'])->name('generator.show');
-Route::put('/generator/{id}', [GeneratorController::class, 'update'])->name('generator.update'); 
-Route::delete('/generator/{id}', [GeneratorController::class, 'destroy'])->name('generator.destroy');
 
 require __DIR__ . '/auth.php';
