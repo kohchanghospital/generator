@@ -26,7 +26,7 @@ class InspectionController extends Controller
 
         $perPage = $request->get('per_page', 20);
 
-        $lists = Inspection::with(['user', 'generator'])
+        $lists = Inspection::with(['user', 'generator', 'checklistResults'])
             ->latest()
             ->paginate($perPage)
             ->withQueryString();

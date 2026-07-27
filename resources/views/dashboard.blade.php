@@ -30,7 +30,7 @@
                 {{-- ผ่าน --}}
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-5">
                     <p class="text-sm text-gray-500 dark:text-gray-400">✅ ผ่าน</p>
-                    <p class="text-3xl font-bold text-green-600">
+                    <p class="text-3xl font-bold text-emerald-500">
                         {{ $passCount ?? 0 }}
                     </p>
                 </div>
@@ -52,7 +52,7 @@
                         </span>
                     </p>
 
-                    <p class="text-3xl font-bold text-red-600">
+                    <p class="text-3xl font-bold text-rose-500">
                         {{ $failCount ?? 0 }}
                     </p>
                 </div>
@@ -74,7 +74,7 @@
                         </span>
                     </p>
 
-                    <p class="text-3xl font-bold text-yellow-600">
+                    <p class="text-3xl font-bold text-amber-400">
                         {{ $notCheckedCount ?? 0 }}
                     </p>
                 </div>
