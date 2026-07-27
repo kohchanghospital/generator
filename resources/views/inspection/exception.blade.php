@@ -71,6 +71,44 @@
                                         <th class="px-4 py-3 text-left text-sm font-semibold">เครื่อง</th>
                                         <th class="px-4 py-3 text-left text-sm font-semibold">ผู้ตรวจ</th>
                                         <th class="px-4 py-3 text-left text-sm font-semibold">หมายเหตุ</th>
+                                        <th class="px-4 py-3 text-center text-sm font-semibold relative">
+                                            สถานะ
+                                            <span x-data="{ open: false }" class="relative inline-block">
+                                                <!-- ไอคอนตัว I -->
+                                                <i class="bi bi-info-circle text-gray-400 cursor-pointer ml-1"
+                                                    @mouseenter="open = true"
+                                                    @mouseleave="open = false"
+                                                    @click="open = !open"></i>
+
+                                                <!-- กล่อง Tooltip -->
+                                                <div x-show="open"
+                                                    x-transition:enter="transition ease-out duration-200"
+                                                    x-transition:enter-start="opacity-0 scale-95"
+                                                    x-transition:enter-end="opacity-100 scale-100"
+                                                    x-transition:leave="transition ease-in duration-150"
+                                                    x-transition:leave-start="opacity-100 scale-100"
+                                                    x-transition:leave-end="opacity-0 scale-95"
+                                                    style="display: none;"
+                                                    class="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-gray-700 text-white text-xs rounded-lg p-3 w-max text-left shadow-xl z-50">
+                                                    <div class="space-y-2">
+                                                        <div class="flex items-center gap-3">
+                                                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block shrink-0"></span>
+                                                            <span class="whitespace-nowrap">ตรวจสอบผ่าน</span>
+                                                        </div>
+                                                        <div class="flex items-center gap-3">
+                                                            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block shrink-0"></span>
+                                                            <span class="whitespace-nowrap">มีรายการตรวจสอบไม่ผ่าน</span>
+                                                        </div>
+                                                        <div class="flex items-center gap-3">
+                                                            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block shrink-0"></span>
+                                                            <span class="whitespace-nowrap">มีรายการที่ไม่ได้ตรวจสอบ</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- ลูกศรชี้ขึ้นด้านบนของ Tooltip -->
+                                                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 -mb-px border-4 border-transparent border-b-gray-700"></div>
+                                                </div>
+                                            </span>
+                                        </th>
                                         <th class="px-4 py-3 text-center text-sm font-semibold">จัดการ</th>
                                     </tr>
                                 </thead>
@@ -83,6 +121,33 @@
                                         <td class="px-4 py-3"> {{ $item->generator->machine_code }} | {{ $item->generator->asset_name }} </td>
                                         <td class="px-4 py-3"> {{ $item->user->name }} </td>
                                         <td class="px-4 py-3 text-gray-500">{{ $item->remark ?? '-' }}</td>
+                                        <td class="px-4 py-3 text-center">
+                                            @php
+                                                // ดึงสถานะทั้งหมดที่มีอยู่ในใบตรวจนี้
+                                                $statuses = $item->checklistResults->pluck('status')->unique();
+                                                $notPass = $statuses->contains(2); // มีสถานะไม่ผ่าน
+                                                $notInspec = $statuses->contains(3); // มีสถานะไม่ได้ตรวจ
+                                                $isAllPass = $statuses->isNotEmpty() && !$notPass && !$notInspec && $statuses->every(fn($s) => $s == 1);
+                                            @endphp
+                                            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-500">
+                                                @if($isAllPass)
+                                                    {{-- ผ่านทั้งหมด แสดงสีเขียวสีเดียว --}}
+                                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500" title="ตรวจสอบผ่าน"></span>
+                                                @else
+                                                    {{-- ถ้ามีไม่ผ่านหรือไม่ได้ตรวจ แสดงสีแดง/เหลืองตามที่มี --}}
+                                                    @if($notPass)
+                                                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500" title="มีรายการตรวจสอบไม่ผ่าน"></span>
+                                                    @endif
+                                                    @if($notInspec)
+                                                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400" title="มีรายการที่ไม่ได้ตรวจสอบ"></span>
+                                                    @endif
+                                                    {{-- เผื่อกรณีไม่มีข้อมูลผลตรวจเลย --}}
+                                                    @if(!$notPass && !$notInspec && $statuses->isEmpty())
+                                                    <span class="text-xs">-</span>
+                                                    @endif
+                                                @endif
+                                            </span>
+                                        </td>
                                         <td class="px-4 py-3 text-center">
                                             <div class="flex items-center justify-center gap-2">
                                                 <div class="relative group">
@@ -125,7 +190,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="7" class="text-center py-6 text-gray-500">
+                                        <td colspan="8" class="text-center py-6 text-gray-500">
                                             ✅ ไม่มีรายการผิดปกติ
                                         </td>
                                     </tr>
@@ -133,7 +198,7 @@
                                 </tbody>
                                 <tfoot class="bg-gray-100 dark:bg-gray-700 border-t border-gray-300 dark:border-gray-600">
                                     <tr>
-                                        <td colspan="7" class="px-3 py-2 text-right text-sm font-semibold">
+                                        <td colspan="8" class="px-3 py-2 text-right text-sm font-semibold">
                                             <x-pagination :lists="$lists" />
                                         </td>
                                     </tr>
