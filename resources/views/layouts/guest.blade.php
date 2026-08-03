@@ -23,7 +23,7 @@
     <div class="min-h-screen bg-slate-50 text-slate-900 dark:bg-gray-950 dark:text-gray-100">
         <div class="mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center px-4 py-8 sm:px-6 lg:grid lg:grid-cols-[1fr_440px] lg:gap-12 lg:px-8">
             <section class="hidden lg:flex lg:flex-col lg:justify-center">
-                <a href="/" class="mb-8 inline-flex items-center gap-4">
+                <a href="{{ url('/') }}" class="mb-8 inline-flex items-center gap-4">
                     <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-gray-900 dark:ring-gray-800">
                         <x-application-logo class="h-12 w-auto" />
                     </span>
@@ -47,7 +47,7 @@
             <main class="flex w-full flex-1 items-center justify-center lg:flex-none">
                 <div class="w-full max-w-md">
                     <div class="mb-6 flex justify-center lg:hidden">
-                        <a href="/" class="inline-flex items-center gap-3">
+                        <a href="{{ url('/') }}" class="inline-flex items-center gap-3">
                             <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-gray-900 dark:ring-gray-800">
                                 <x-application-logo class="h-10 w-auto" />
                             </span>
