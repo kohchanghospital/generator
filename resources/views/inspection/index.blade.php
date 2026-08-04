@@ -6,10 +6,6 @@
     </x-slot>
     <div x-data="{
             open: {{ request('open') === 'new' ? 'true' : 'false' }},
-            openReport: false,
-            typeReport: 'inspection',
-            reportMode: '10',
-            customLimit: '',
             mode: 'create', // create | edit
             current: {
                 id: null,
@@ -77,7 +73,8 @@
     ">
         <div class="grid justify-items-stretch sm:justify-items-end">
             <button
-                @click="openReport = true"
+                type="button"
+                @click="$dispatch('open-inspection-report')"
                 class="btn btn-primary w-full text-center text-gray-800 dark:text-gray-200 leading-tight sm:w-auto">
                 <i class="bi bi-file-earmark-arrow-down"></i> Export Report
             </button>
@@ -246,7 +243,7 @@
                 </div>
             </div>
             @include('inspection.modal')
-            @include('inspection.modal-inspection-report')
+            @include('inspection.modal-inspection-report', ['typeReport' => 'inspection'])
         </div>
     </div>
     <x-toast-validation />

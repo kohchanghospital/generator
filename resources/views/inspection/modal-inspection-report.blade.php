@@ -1,4 +1,11 @@
-<div>
+<div
+    x-data="{
+        openReport: false,
+        typeReport: @js($typeReport ?? 'inspection'),
+        reportMode: '10',
+        customLimit: ''
+    }"
+    @open-inspection-report.window="openReport = true">
 
     <!-- Modal -->
     <div

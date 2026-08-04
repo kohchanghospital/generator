@@ -83,18 +83,22 @@
         }
 
         .col-user {
-            width: 20%;
+            width: 15%;
+        }
+
+        .col-status {
+            width: 15%;
         }
 
         .col-remark {
-            width: 30%;
+            width: 20%;
         }
     </style>
 </head>
 
 <body>
 
-    <h2>รายงานการตรวจเช็คเครื่องปั่นไฟ</h2>
+    <h2>{{ $reportTitle }}</h2>
 
     <table>
         <thead>
@@ -103,6 +107,7 @@
                 <th class="col-code">เลขที่ตรวจ</th>
                 <th class="col-date">วันที่ตรวจ</th>
                 <th class="col-user">ผู้บันทึก</th>
+                <th class="col-status">สถานะ</th>
                 <th class="col-remark">หมายเหตุ</th>
             </tr>
         </thead>
@@ -113,6 +118,35 @@
                 <td>{{ $row->inspection_no }}</td>
                 <td>{{ \Carbon\Carbon::parse($row->inspection_date)->addYears(543)->format('d/m/Y') }} {{ \Carbon\Carbon::parse($row->inspection_time)->format('H:i') }}</td>
                 <td>{{ $row->user->name ?? '-' }}</td>
+                <td>
+                    @php
+                    // ดึงสถานะทั้งหมดของใบตรวจ
+                    $statuses = $row->checklistResults->pluck('status')->unique();
+
+                    $notPass = $statuses->contains(2);
+                    $notInspect = $statuses->contains(3);
+                    $isAllPass = $statuses->isNotEmpty()
+                    && !$notPass
+                    && !$notInspect
+                    && $statuses->every(fn($s) => $s == 1);
+
+                    $statusText = [];
+
+                    if ($isAllPass) {
+                    $statusText[] = 'ผ่าน';
+                    }
+
+                    if ($notPass) {
+                    $statusText[] = 'ไม่ผ่าน';
+                    }
+
+                    if ($notInspect) {
+                    $statusText[] = 'ไม่ได้ตรวจ';
+                    }
+                    @endphp
+
+                    {{ count($statusText) ? implode(' และ ', $statusText) : '-' }}
+                </td>
                 <td>{{ $row->remark ?? '-' }}</td>
             </tr>
             @endforeach

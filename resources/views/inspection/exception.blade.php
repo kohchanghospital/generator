@@ -8,10 +8,6 @@
     </x-slot>
     <div x-data="{
         open: false,
-        openReport: false,
-        typeReport: 'exception',
-        reportMode: '10',
-        customLimit: '',
         mode: 'edit',
         current: {},
 
@@ -48,7 +44,8 @@
     }">
         <div class="grid justify-items-end">
             <button
-                @click="openReport = true"
+                type="button"
+                @click="$dispatch('open-inspection-report')"
                 class="btn btn-primary text-gray-800 dark:text-gray-200 leading-tight">
                 <i class="bi bi-file-earmark-arrow-down"></i> Export Report
             </button>
@@ -123,28 +120,28 @@
                                         <td class="px-4 py-3 text-gray-500">{{ $item->remark ?? '-' }}</td>
                                         <td class="px-4 py-3 text-center">
                                             @php
-                                                // ดึงสถานะทั้งหมดที่มีอยู่ในใบตรวจนี้
-                                                $statuses = $item->checklistResults->pluck('status')->unique();
-                                                $notPass = $statuses->contains(2); // มีสถานะไม่ผ่าน
-                                                $notInspec = $statuses->contains(3); // มีสถานะไม่ได้ตรวจ
-                                                $isAllPass = $statuses->isNotEmpty() && !$notPass && !$notInspec && $statuses->every(fn($s) => $s == 1);
+                                            // ดึงสถานะทั้งหมดที่มีอยู่ในใบตรวจนี้
+                                            $statuses = $item->checklistResults->pluck('status')->unique();
+                                            $notPass = $statuses->contains(2); // มีสถานะไม่ผ่าน
+                                            $notInspec = $statuses->contains(3); // มีสถานะไม่ได้ตรวจ
+                                            $isAllPass = $statuses->isNotEmpty() && !$notPass && !$notInspec && $statuses->every(fn($s) => $s == 1);
                                             @endphp
                                             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-500">
                                                 @if($isAllPass)
-                                                    {{-- ผ่านทั้งหมด แสดงสีเขียวสีเดียว --}}
-                                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500" title="ตรวจสอบผ่าน"></span>
+                                                {{-- ผ่านทั้งหมด แสดงสีเขียวสีเดียว --}}
+                                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500" title="ตรวจสอบผ่าน"></span>
                                                 @else
-                                                    {{-- ถ้ามีไม่ผ่านหรือไม่ได้ตรวจ แสดงสีแดง/เหลืองตามที่มี --}}
-                                                    @if($notPass)
-                                                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500" title="มีรายการตรวจสอบไม่ผ่าน"></span>
-                                                    @endif
-                                                    @if($notInspec)
-                                                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400" title="มีรายการที่ไม่ได้ตรวจสอบ"></span>
-                                                    @endif
-                                                    {{-- เผื่อกรณีไม่มีข้อมูลผลตรวจเลย --}}
-                                                    @if(!$notPass && !$notInspec && $statuses->isEmpty())
-                                                    <span class="text-xs">-</span>
-                                                    @endif
+                                                {{-- ถ้ามีไม่ผ่านหรือไม่ได้ตรวจ แสดงสีแดง/เหลืองตามที่มี --}}
+                                                @if($notPass)
+                                                <span class="w-2.5 h-2.5 rounded-full bg-rose-500" title="มีรายการตรวจสอบไม่ผ่าน"></span>
+                                                @endif
+                                                @if($notInspec)
+                                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400" title="มีรายการที่ไม่ได้ตรวจสอบ"></span>
+                                                @endif
+                                                {{-- เผื่อกรณีไม่มีข้อมูลผลตรวจเลย --}}
+                                                @if(!$notPass && !$notInspec && $statuses->isEmpty())
+                                                <span class="text-xs">-</span>
+                                                @endif
                                                 @endif
                                             </span>
                                         </td>
@@ -210,7 +207,7 @@
             </div>
         </div>
         @include('inspection.modal')
-        @include('inspection.modal-inspection-report')
+        @include('inspection.modal-inspection-report', ['typeReport' => 'exception'])
     </div>
     <x-toast-validation />
     <x-toast />

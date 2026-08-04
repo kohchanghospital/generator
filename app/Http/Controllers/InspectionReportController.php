@@ -41,8 +41,14 @@ class InspectionReportController extends Controller
                 ->get();
         }
 
-        $pdf = Pdf::loadView('inspection.report.inspection', compact('inspections'))
-            ->setPaper('a4', 'portrait');
+        // $pdf = Pdf::loadView('inspection.report.inspection', compact('inspections'))
+        //     ->setPaper('a4', 'portrait');
+
+        $pdf = Pdf::loadView('inspection.report.inspection', [
+            'inspections' => $inspections,
+            'reportType' => 'inspection',
+            'reportTitle' => 'รายงานการตรวจเช็คเครื่องปั่นไฟ',
+        ])->setPaper('a4', 'portrait');
 
         return $pdf->stream('inspection-report.pdf');
     }
@@ -66,11 +72,16 @@ class InspectionReportController extends Controller
             $inspections = $query->limit((int)$limit)->get();
         }
 
-        $pdf = Pdf::loadView(
-            'inspection.report.inspection',
-            compact('inspections')
-        )
-            ->setPaper('a4', 'portrait');
+        // $pdf = Pdf::loadView(
+        //     'inspection.report.inspection',
+        //     compact('inspections')
+        // )->setPaper('a4', 'portrait');
+
+        $pdf = Pdf::loadView('inspection.report.inspection', [
+            'inspections' => $inspections,
+            'reportType' => 'exception',
+            'reportTitle' => 'รายงานเครื่องปั่นไฟที่ไม่ผ่าน / ไม่ได้ตรวจ',
+        ])->setPaper('a4', 'portrait');
 
         return $pdf->stream('exception-report.pdf');
     }
